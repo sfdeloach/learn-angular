@@ -10,9 +10,15 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
 1. Getting Started
  - create and serve a new project
+
          ng new aa-get-start
          cd aa-get-start
          ng serve --open
+
+ - install bootstrap under apps->styles in '.angular-cli.json' file, path to bootstrap.min.css file is relative to /src/index.html
+
+         npm install --save bootstrap
+
 2. The Basics
 3. Course Project - The Basics
 4. Debugging
