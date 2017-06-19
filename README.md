@@ -8,7 +8,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
 ## Course Content
 
-1. Getting Started
+1. Getting Started (aa)
  - create and serve a new project
 
          ng new aa-get-start
@@ -19,30 +19,36 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
          npm install --save bootstrap
 
-2. The Basics
-3. Course Project - The Basics
-4. Debugging
-5. Components & Databinding Deep Dive
-6. Course Project - Components & Databinding
-7. Directives Deep Directives
-8. Course Project - Directives
-9. Using Services & Dependency Injection
-10. Course Project - Services & Dependency Injection
-11. Changes Pages with Routing
-12. Course Project - Routing
-13. Understanding Observables
-14. Course Project - Observables
-15. Handling Forms in Angular Apps
-16. Course Project - Forms
-17. Using Pipes to Transform Output
-18. Making HTTP Requests
-19. Course Project - HTTP
-20. Authentication & Route Protection in Angular Apps
-21. Using Angular Modules & Optimizing Apps
-22. Deploying an Angular App
-23. Angular Animations
-24. A Basic Introduction to Unit Testing in Angular Apps
-25. Course Roundup
-26. About the Course Update & Angular 4
-27. Custom Project & Workflow Setup
-28. Bonus: TypeScript Introduction (for Angular 2 Usage)
+2. The Basics (ab)
+3. Course Project - The Basics (ac)
+4. Debugging (ad)
+5. Components & Databinding Deep Dive (ae)
+6. Course Project - Components & Databinding (af)
+7. Directives Deep Directives (ag)
+8. Course Project - Directives (ah)
+9. Using Services & Dependency Injection (ai)
+10. Course Project - Services & Dependency Injection (aj)
+11. Changes Pages with Routing (ak)
+12. Course Project - Routing (al)
+13. Understanding Observables (am)
+14. Course Project - Observables (an)
+15. Handling Forms in Angular Apps (ao)
+16. Course Project - Forms (ap)
+17. Using Pipes to Transform Output (aq)
+18. Making HTTP Requests (ar)
+19. Course Project - HTTP (as)
+20. Authentication & Route Protection in Angular Apps (at)
+21. Using Angular Modules & Optimizing Apps (au)
+22. Deploying an Angular App (av)
+23. Angular Animations (aw)
+24. A Basic Introduction to Unit Testing in Angular Apps (ax)
+25. Course Roundup (ay)
+26. About the Course Update & Angular 4 (az)
+27. Custom Project & Workflow Setup (ba)
+28. Bonus: TypeScript Introduction (for Angular 2 Usage) (bc)
+- install TypeScript module globally to transpile ts files into JavaScript:
+
+        npm install -g typescript
+        tsc example-typescript-file.ts
+
+- Topics covered: classes, interfaces, exports, generics, types
