@@ -2,9 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.2.
 
-## Use Bootstrap CSS styling
+## Use Bootstrap and Font Awesome CSS styling
 
-Run `npm install bootstrap --save` and update the `.angular-cli.json` file prior to dev server startup
+Run `npm install bootstrap --save` and `npm install font-awesome --save`, update the `.angular-cli.json` file prior to dev server startup
 
 ## Development server
 
