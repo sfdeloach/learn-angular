@@ -1,10 +1,10 @@
-import { AaGetStartPage } from './app.po';
+import { AbTheBasicsPage } from './app.po';
 
-describe('aa-get-start App', () => {
-  let page: AaGetStartPage;
+describe('ab-the-basics App', () => {
+  let page: AbTheBasicsPage;
 
   beforeEach(() => {
-    page = new AaGetStartPage();
+    page = new AbTheBasicsPage();
   });
 
   it('should display welcome message', () => {
