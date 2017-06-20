@@ -31,6 +31,18 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
     - create a new angular app using the cli
     - load bootstrap via npm and load into the app
     - create a new server component and load onto the page
+ - use the cli to create components automatically:
+
+         ng generate component <name of component>
+
+ - components can be nested and combined in any combination
+ - template or templateUrl must be present in the Component decorator object, use template for convenience if the html is not long
+ - styles or styleUrl is optional and only affects the specific component
+ - there are three options when creating component selectors, element selectors are most common:
+ 
+         selector: 'app-servers'   // by element   <app-servers>             </app-servers>
+         selector: '[app-servers]' // by attribute <div app-servers>         </div>
+         selector: '.app-servers'  // by class     <div class='app-servers'> </div>
 
 3. Course Project - The Basics (ac)
 4. Debugging (ad)
