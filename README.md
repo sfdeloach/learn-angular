@@ -8,71 +8,70 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
 ## Course Content
 
-1. Getting Started (aa)
-
- - create and serve a new project
-
+1. **Getting Started (aa)**
+ - create and serve a new project:
          ng new aa-get-start
          cd aa-get-start
          ng serve --open
-
  - install bootstrap under apps->styles in '.angular-cli.json' file, path to bootstrap.min.css file is relative to /src/index.html, note that bootstrap must be included in the cli file prior to starting the server, changes to this file are not dynamically updated
-
          npm install --save bootstrap
-
-2. The Basics (ab)
-
- - create a new component called server, a new directory under the app folder
+2. **The Basics (ab)**
+ - create a new component called server, a new directory under the app folder (not using cli tool)
  - model the same files found under the app folder using a similar naming convention for ts, html, and css files
  - modules are used to bundle components
- - new server module is added to app.module file under the declarations property
- - include your new components onto the page with custom selectors like 'app-componentname'
- - Review assignment:
+ - new server module is added to `app.module` file under the declarations property
+ - include your new components onto the page with custom selectors that follow the naming convention similar to `app-<component name>`
+ - self-review assignment:
     - create a new angular app using the cli
-    - load bootstrap via npm and load into the app
+    - load Bootstrap CSS framework via npm and load into the app
     - create a new server component and load onto the page
- - use the cli to create components automatically:
-
+ - use the ng cli tool to create components automatically:
          ng generate component <name of component>
-
  - components can be nested and combined in any combination
- - template or templateUrl must be present in the Component decorator object, use template for convenience if the html is not long
- - styles or styleUrl is optional and only affects the specific component
- - there are three options when creating component selectors, element selectors are most common:
- 
+ - `template` or `templateUrl` must be present in the `@Component({})` decorator object, use the inline template property for convenience if the html code is not long
+ - `styles` or `styleUrl` is optional and only affects the specific component, use the inline styles template for convenience if the css code is not long
+ - there are three options when creating component selectors in the html code, *element selectors* are most common:
          selector: 'app-servers'   // by element   <app-servers>             </app-servers>
          selector: '[app-servers]' // by attribute <div app-servers>         </div>
          selector: '.app-servers'  // by class     <div class='app-servers'> </div>
-
-3. Course Project - The Basics (ac)
-4. Debugging (ad)
-5. Components & Databinding Deep Dive (ae)
-6. Course Project - Components & Databinding (af)
-7. Directives Deep Directives (ag)
-8. Course Project - Directives (ah)
-9. Using Services & Dependency Injection (ai)
-10. Course Project - Services & Dependency Injection (aj)
-11. Changes Pages with Routing (ak)
-12. Course Project - Routing (al)
-13. Understanding Observables (am)
-14. Course Project - Observables (an)
-15. Handling Forms in Angular Apps (ao)
-16. Course Project - Forms (ap)
-17. Using Pipes to Transform Output (aq)
-18. Making HTTP Requests (ar)
-19. Course Project - HTTP (as)
-20. Authentication & Route Protection in Angular Apps (at)
-21. Using Angular Modules & Optimizing Apps (au)
-22. Deploying an Angular App (av)
-23. Angular Animations (aw)
-24. A Basic Introduction to Unit Testing in Angular Apps (ax)
-25. Course Roundup (ay)
-26. About the Course Update & Angular 4 (az)
-27. Custom Project & Workflow Setup (ba)
-28. Bonus: TypeScript Introduction (for Angular 2 Usage) (bc)
-- install TypeScript module globally to transpile ts files into JavaScript:
-
+ - What is databinding? Databinding = Communication between your business logic and the html template
+ - Four types of **databinding**
+    - Output Data
+      - Interpolation `{{ data }}`
+      - Property Binding `[property]="data"`
+      - `data` can be a property or method()
+    - Input Data - react to user events
+      - Event Binding `(event)="method()"`
+      - Event Binding `(event)="method($event)"`
+      - `(event)` can include input, click
+    - Two-way-binding `[(ngModel)]="data"`
+3. **Course Project - The Basics (ac)**
+4. **Debugging (ad)**
+5. **Components & Databinding Deep Dive (ae)**
+6. **Course Project - Components & Databinding (af)**
+7. **Directives Deep Directives (ag)**
+8. **Course Project - Directives (ah)**
+9. **Using Services & Dependency Injection (ai)**
+10. **Course Project - Services & Dependency Injection (aj)**
+11. **Changes Pages with Routing (ak)**
+12. **Course Project - Routing (al)**
+13. **Understanding Observables (am)**
+14. **Course Project - Observables (an)**
+15. **Handling Forms in Angular Apps (ao)**
+16. **Course Project - Forms (ap)**
+17. **Using Pipes to Transform Output (aq)**
+18. **Making HTTP Requests (ar)**
+19. **Course Project - HTTP (as)**
+20. **Authentication & Route Protection in Angular Apps (at)**
+21. **Using Angular Modules & Optimizing Apps (au)**
+22. **Deploying an Angular App (av)**
+23. **Angular Animations (aw)**
+24. **A Basic Introduction to Unit Testing in Angular Apps (ax)**
+25. **Course Roundup (ay)**
+26. **About the Course Update & Angular 4 (az)**
+27. **Custom Project & Workflow Setup (ba)**
+28. **Bonus: TypeScript Introduction (bc)**
+ - install TypeScript module globally to transpile ts files into JavaScript:
         npm install -g typescript
         tsc example-typescript-file.ts
-
-- Topics covered: classes, interfaces, exports, generics, types
+ - Topics covered: classes, interfaces, exports, generics, types

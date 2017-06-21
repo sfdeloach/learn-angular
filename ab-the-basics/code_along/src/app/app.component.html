@@ -2,10 +2,50 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>This message is coming to you from the {{title}}!</h1>
-      <div app-servers></div> <!-- attribute selector -->
+      <div app-servers></div>
+      <!-- attribute selector -->
       <hr>
-      <p>here is a single server for you:</p>
+      <p>here is a single server for you using a class selector:</p>
       <div class="app-server"></div>
+      <!-- class selector -->
+      <p>here is another single server for you using the more often used element, but I can't show it to you now because the selector for <code>app-server</code> was not setup for an element in the <code>server.component</code> file.</p>
+      <!-- <app-server></app-server> element selector (most popular) -->
+      <hr>
+      <h3>Output Data</h3>
+
+      <h4>Examples of string interpolation:</h4>
+      <p>True: <code>{{ (getAlwaysTrue()) }}</code></p>
+      <p>False: <code>{{ alwaysFalse }}</code></p>
+      <p>Ternary expression example: {{ erraticText === "black" ? 'black' : 'white' }}</p>
+      <hr>
+      <h4>Examples of property binding:</h4>
+      <p [innerHTML]="alwaysTrue">It does not matter what is put here, it will be overwritten!</p>
+      <p [style.color]="color" [style.background]="background">The color purple set by attribute and property binding</p>
+      <p [style.color]="erraticText">Help me! I have three seperate interval functions controlling my text color!</p>
+      <hr>
+      <h3>Input Data - reacting to user events</h3>
+
+      <h4>Examples of event binding:</h4>
+      <div class="btn-toolbar">
+        <button (mousemove)="onAddBtn(-1000)" type="button" class="btn btn-danger">-1000</button>
+        <button (mousemove)="onAddBtn(-100)" type="button" class="btn btn-danger">-100</button>
+        <button (mousemove)="onAddBtn(-10)" type="button" class="btn btn-danger">-10</button>
+        <button (mousemove)="onAddBtn(-1)" type="button" class="btn btn-danger">-1</button>
+        <button (mousemove)="onAddBtn(0)" type="button" class="btn btn-warning">reset</button>
+        <button (mousemove)="onAddBtn(1)" type="button" class="btn btn-success">+1</button>
+        <button (mousemove)="onAddBtn(10)" type="button" class="btn btn-success">+10</button>
+        <button (mousemove)="onAddBtn(100)" type="button" class="btn btn-success">+100</button>
+        <button (mousemove)="onAddBtn(1000)" type="button" class="btn btn-success">+1000</button>
+      </div>
+      <p> Click counter: {{ clickCount }} </p>
+
+      <hr>
+      <h4>Examples of event binding with <code>$event</code> passed as an argument:</h4>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input (input)="onEmailKeypress($event)" type="email" class="form-control" id="exampleInputEmail1" placeholder="enter email here...">
+        <p>email address: <strong><code>{{ emailAddress }}</code></strong></p>
+      </div>
     </div>
   </div>
 </div>
