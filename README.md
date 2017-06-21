@@ -10,11 +10,16 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
 1. **Getting Started (aa)**
  - create and serve a new project:
+ 
          ng new aa-get-start
          cd aa-get-start
          ng serve --open
+         
  - install bootstrap under apps->styles in '.angular-cli.json' file, path to bootstrap.min.css file is relative to /src/index.html, note that bootstrap must be included in the cli file prior to starting the server, changes to this file are not dynamically updated
+ 
          npm install --save bootstrap
+         npm install --save font-awesome // (optional)
+         
 2. **The Basics (ab)**
  - create a new component called server, a new directory under the app folder (not using cli tool)
  - model the same files found under the app folder using a similar naming convention for ts, html, and css files
@@ -26,14 +31,18 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
     - load Bootstrap CSS framework via npm and load into the app
     - create a new server component and load onto the page
  - use the ng cli tool to create components automatically:
+ 
          ng generate component <name of component>
+         
  - components can be nested and combined in any combination
  - `template` or `templateUrl` must be present in the `@Component({})` decorator object, use the inline template property for convenience if the html code is not long
  - `styles` or `styleUrl` is optional and only affects the specific component, use the inline styles template for convenience if the css code is not long
  - there are three options when creating component selectors in the html code, *element selectors* are most common:
+ 
          selector: 'app-servers'   // by element   <app-servers>             </app-servers>
          selector: '[app-servers]' // by attribute <div app-servers>         </div>
          selector: '.app-servers'  // by class     <div class='app-servers'> </div>
+         
  - What is databinding? Databinding = Communication between your business logic and the html template
  - Four types of **databinding**
     - Output Data
