@@ -52,7 +52,8 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
     - Input Data - react to user events
       - Event Binding `(event)="method()"`
       - Event Binding `(event)="method($event)"`
-      - `(event)` can include input, click
+      - `(event)` refers to a specific event definded by the html specification. `input`, `click`, and `keypress` are common events, see the [MDN event reference for more info](https://developer.mozilla.org/en-US/docs/Web/Events)
+      - `$event` is an object that contains information about the html element associated with the `(event)`
     - Two-way-binding `[(ngModel)]="data"`
 3. **Course Project - The Basics (ac)**
 4. **Debugging (ad)**
