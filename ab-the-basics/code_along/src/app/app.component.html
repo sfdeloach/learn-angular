@@ -1,6 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
+
+      <!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)">
+      <p>{{ serverName }}</p> -->
+
+      <div class="form-group">
+        <label for="servername">Server Name</label>
+        <input id="servername" type="text" class="form-control" [(ngModel)]="serverName">
+      </div>
+      <input [disabled]="disableButtonTimer" type="button" class="btn btn-primary" value="Add Server" (click)='updateServerName()'>
+      <div class="form-group">
+        <p>{{ serverStatus }}</p>
+      </div>
+
       <h1>This message is coming to you from the {{title}}!</h1>
       <div app-servers></div>
       <!-- attribute selector -->

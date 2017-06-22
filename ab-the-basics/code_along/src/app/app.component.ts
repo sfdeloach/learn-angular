@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AppComponent';
+  disableButtonTimer = true;
+  serverStatus = 'No server has been created.';
+  serverName = '';
   alwaysTrue = true;
   alwaysFalse = false;
   erraticText = "black";
@@ -18,6 +21,10 @@ export class AppComponent {
   validMessage = '';
 
   constructor() {
+    setTimeout(() => {
+      this.disableButtonTimer = false;
+    }, 2000);
+
     setInterval(() => {
       if (this.erraticText === 'white') {
         this.erraticText = 'black';
@@ -41,6 +48,17 @@ export class AppComponent {
         this.erraticText = 'white';
       }
     }, 1500);
+  }
+
+  updateServerName() {
+    this.serverStatus = `Server was created! Name is ${this.serverName }`
+  }
+
+  onUpdateServerName(evt: Event): void {
+    // console.log(evt.constructor.name);  // "Event"
+    // console.log(evt.target.constructor.name); // "HTMLInputElement"
+    let target = evt.target as HTMLInputElement; // object casting
+    this.serverName = target.value;
   }
 
   getAlwaysTrue() {
