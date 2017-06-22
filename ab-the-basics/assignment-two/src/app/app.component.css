@@ -1,0 +1,18 @@
+div.ui.raised.very.padded.text.container.segment {
+  margin-top: 50px;
+}
+
+input {
+  width: 600px;
+}
+
+code {
+  color: darkred;
+}
+
+p {
+  font-size: 150%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: #32335b;
+}
