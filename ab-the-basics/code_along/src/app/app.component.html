@@ -42,9 +42,13 @@
       <hr>
       <h4>Examples of event binding with <code>$event</code> passed as an argument:</h4>
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input (input)="onEmailKeypress($event)" type="email" class="form-control" id="exampleInputEmail1" placeholder="enter email here...">
-        <p>email address: <strong><code>{{ emailAddress }}</code></strong></p>
+        <label for="exampleInputEmail1">Email address (input)</label>
+        <input (input)="onInput($event)" type="email" class="form-control" id="exampleInputEmail1" placeholder="enter email here...">
+        <p>email address: <strong><code>{{ emailInput }}</code></strong></p>
+        <p>validation message: <strong><code>{{ validMessage }}</code></strong></p>
+        <label for="exampleInputEmail2">Email address (keypress)</label>
+        <input (keypress)="onKeypress($event)" type="email" class="form-control" id="exampleInputEmail2" placeholder="enter email here...">
+        <p>email address: <strong><code>{{ emailKeypress }}</code></strong></p>
       </div>
     </div>
   </div>

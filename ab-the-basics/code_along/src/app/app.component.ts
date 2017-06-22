@@ -13,7 +13,9 @@ export class AppComponent {
   color = "purple";
   background = "gray";
   clickCount = 0;
-  emailAddress = '';
+  emailInput = '';
+  emailKeypress = '';
+  validMessage = '';
 
   constructor() {
     setInterval(() => {
@@ -49,7 +51,14 @@ export class AppComponent {
     number === 0 ? this.clickCount = 0 : this.clickCount += number;
   }
 
-  onEmailKeypress(event: KeyboardEvent): void {
-    this.emailAddress = (<HTMLInputElement>event.target).value;
+  onInput(event: Event): void {
+    console.log(event);
+    this.emailInput = (<HTMLInputElement>event.target).value;
+    this.validMessage = (<HTMLInputElement>event.target).validationMessage;
+  }
+
+  onKeypress(event: KeyboardEvent): void {
+    console.log(event);
+    this.emailKeypress = (<HTMLInputElement>event.target).value;
   }
 }
