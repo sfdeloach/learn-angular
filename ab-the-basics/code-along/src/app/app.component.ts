@@ -10,6 +10,7 @@ export class AppComponent {
   disableButtonTimer = true;
   serverStatus = 'No server has been created.';
   serverName = '';
+  addServerButtonClick = false;
   alwaysTrue = true;
   alwaysFalse = false;
   erraticText = "black";
@@ -51,6 +52,7 @@ export class AppComponent {
   }
 
   updateServerName() {
+    this.addServerButtonClick = true;
     this.serverStatus = `Server was created! Name is ${this.serverName }`
   }
 

@@ -52,11 +52,23 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
     - Input Data - react to user events
       - Event Binding `(event)="method()"`
       - Event Binding `(event)="method($event)"`
-      - `(event)` refers to a specific event definded by the html specification. `input`, `click`, and `keypress` are common events, see the [MDN event reference for more info](https://developer.mozilla.org/en-US/docs/Web/Events)
+      - `(event)` refers to a specific event defined by the html specification. `input`, `click`, and `keypress` are common events, see the [MDN event reference for more info](https://developer.mozilla.org/en-US/docs/Web/Events)
       - `$event` is an object that contains information about the html element associated with the `(event)`
     - Two-way-binding `[(ngModel)]="data"`
       - `FormsModule` must be added to the `imports[]` array in the AppModule
       - `FormsModule` is imported from `@angular/forms`
+  - Introduction to **Directives** - instructions in the DOM
+    - Built-in structural directives, ngIf and ng-template (if-else template), uses * to denote it is a structural binding
+      - ngIf - `<p *ngIf="business-logic"></p>` where `business-logic` is code that evals to a boolean
+      - else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is a marker inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
+      - *IMPORTANT DISTINCTION* - structural directives completely add or remove selectors from the DOM
+    - Built-in attribute directives, ngStyle, uses [] similar to property binding
+      - `[ngStyle]="{'background-color': getColor()}"`, notice the method call getColor() is not wrapped in quotes
+      - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
+      - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
+    - Built-in structural directive, ngFor
+      - `<app-server *ngFor="let server of servers"></app-server>`
+      - use the reserved work `index` to gain access to the iteration number: `<app-server *ngFor="let server of servers; let i = index"></app-server>`
 3. **Course Project - The Basics (ac)**
 4. **Debugging (ad)**
 5. **Components & Databinding Deep Dive (ae)**

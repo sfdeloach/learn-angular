@@ -10,19 +10,16 @@
         <input id="servername" type="text" class="form-control" [(ngModel)]="serverName">
       </div>
       <input [disabled]="disableButtonTimer" type="button" class="btn btn-primary" value="Add Server" (click)='updateServerName()'>
-      <div class="form-group">
+      <div class="form-group" *ngIf="addServerButtonClick; else elseStuffGoesHere;">
         <p>{{ serverStatus }}</p>
       </div>
+      <ng-template #elseStuffGoesHere class="form-group">  <!-- example of if-else template -->
+        <p>I have nothing for you, it's time to go.</p>
+      </ng-template>
 
       <h1>This message is coming to you from the {{title}}!</h1>
       <div app-servers></div>
       <!-- attribute selector -->
-      <hr>
-      <p>here is a single server for you using a class selector:</p>
-      <div class="app-server"></div>
-      <!-- class selector -->
-      <p>here is another single server for you using the more often used element, but I can't show it to you now because the selector for <code>app-server</code> was not setup for an element in the <code>server.component</code> file.</p>
-      <!-- <app-server></app-server> element selector (most popular) -->
       <hr>
       <h3>Output Data</h3>
 

@@ -1,0 +1,24 @@
+<div class="ui raised very padded text container segment">
+
+  <h2 class="ui header">Assignment Three</h2>
+  <h4>Instructions:</h4>
+  <ol>
+    <li>Add a button which says 'Display Details'</li>
+    <li>Add a paragraph with any content of your choice (e.g. 'Secret Password = tuna')</li>
+    <li>Toggle the displaying of that paragraph with the button created in the first step</li>
+    <li>Log all button clicks in an array and output that array below the secret paragraph (maybe log a timestamp or simply an incrementing number?)</li>
+    <li>Starting at the 5th log item, give all future log items a blue background (via ngStyle) and white color (via ngClass)</li>
+  </ol>
+  <hr>
+  <button (click)="toggleText(); newLogEntry();" class="ui primary button">Display Details</button>
+  <p class="secret-message" *ngIf="isTextVisible">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id augue quis mauris porta scelerisque non quis risus. Aenean mi dolor, fermentum a sem id, dictum iaculis velit. Ut id blandit dolor, vitae euismod massa. Cras a dui eleifend, finibus elit at, venenatis orci. Nullam sit amet ex sapien. Sed porta tortor eu lorem pulvinar aliquam. Quisque finibus justo hendrerit arcu consequat, vitae egestas erat ornare. Sed eget arcu eu nulla facilisis luctus vel ac ipsum.</p>
+  <h4>Log:</h4>
+  <div *ngIf="logList.length !== 0; else emptyList">
+    <div *ngFor="let log of logList; let i = index;" [ngStyle]="{'background-color': i > 3 ? '#2185d0' : 'white'}" [ngClass]="{'white-text': i > 3}">
+      <code>{{ i + 1 }}. {{ log }}</code>
+    </div>
+  </div>
+  <ng-template #emptyList>
+    The list is empty.
+  </ng-template>
+</div>
