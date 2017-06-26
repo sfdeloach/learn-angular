@@ -97,30 +97,57 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
          }
 
   - An important topic that will be addressed in future versions of the class project include learning how components can exchange data with each other.
+
 4. **Debugging (ad)**
+  - Using the 'Sources' tab in Chrome Dev Tools, breakpoints can be set allowing you to  step through your code
+  - In the dev stage, Sourcemaps are provided under the webpack section, your TypeScript code can be found in its original form under the '.' folder
+
 5. **Components & Databinding Deep Dive (ae)**
+
 6. **Course Project - Components & Databinding (af)**
+
 7. **Directives Deep Directives (ag)**
+
 8. **Course Project - Directives**
+
 9. **Using Services & Dependency Injection (ai)**
+
 10. **Course Project - Services & Dependency Injection**
+
 11. **Changes Pages with Routing (ak)**
+
 12. **Course Project - Routing**
+
 13. **Understanding Observables (am)**
+
 14. **Course Project - Observables**
+
 15. **Handling Forms in Angular Apps (ao)**
+
 16. **Course Project - Forms**
+
 17. **Using Pipes to Transform Output (aq)**
+
 18. **Making HTTP Requests (ar)**
+
 19. **Course Project - HTTP**
+
 20. **Authentication & Route Protection in Angular Apps (at)**
+
 21. **Using Angular Modules & Optimizing Apps (au)**
+
 22. **Deploying an Angular App (av)**
+
 23. **Angular Animations (aw)**
+
 24. **A Basic Introduction to Unit Testing in Angular Apps (ax)**
+
 25. **Course Roundup (ay)**
+
 26. **About the Course Update & Angular 4 (az)**
+
 27. **Custom Project & Workflow Setup (ba)**
+
 28. **Bonus: TypeScript Introduction (bc)**
  - install TypeScript module globally to transpile ts files into JavaScript:
         npm install -g typescript
