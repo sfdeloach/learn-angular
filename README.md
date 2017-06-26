@@ -64,11 +64,11 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - if - `<p *ngIf="business-logic"></p>` where `business-logic` is code that evals to a boolean
       - if-else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is marked with # inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
       - *IMPORTANT DISTINCTION* - structural directives completely add or remove selectors from the DOM, they are not just simply made invisible
-    - Built-in attribute directives, `[ngStyle]`, uses square brackets [] similar to property binding notation
+    - Built-in attribute directives, `[ngStyle]`, uses square brackets [ ] similar to property binding notation
       - `[ngStyle]="{'background-color': getColor()}"`, notice the method call getColor() is not wrapped in quotes
       - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
-    - Built-in structural directive, `ngFor`
+    - Built-in structural directive, `*ngFor`
       - `<app-server *ngFor="let server of servers"></app-server>`
       - use the reserved work `index` to gain access to the iteration number:
       
