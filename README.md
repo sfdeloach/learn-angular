@@ -59,7 +59,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - `FormsModule` must be added to the `imports[]` array in the AppModule
       - `FormsModule` is imported from `@angular/forms`
       - This technique is referred to 'two-way-binding' because it essentially combines property and event binding, the data model is automatically updated based on user-driven events like typing text into an input field
-  - Introduction to **Directives** - instructions in the DOM
+  - Introduction to **Directives** - "directives give instructions to the DOM"
     - Built-in structural directives, ngIf and ng-template (if-else template), uses * to denote it is a structural binding
       - ngIf - `<p *ngIf="business-logic"></p>` where `business-logic` is code that evals to a boolean
       - else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is a marked with # inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
