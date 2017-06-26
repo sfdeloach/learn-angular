@@ -45,11 +45,12 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
  - What is databinding? Databinding = Communication between your business logic and the html template
  - Four types of **databinding**
-    - Output Data
+    - Output Data (one-way data binding)
       - Interpolation `{{ data }}`
       - Property Binding `[property]="data"`
-      - `data` can be a property or method()
-    - Input Data - react to user events
+      - `data` is a property or method() in the app.component.ts namespace
+      - In most cases, either technique can be used to achieve the same result, it would be wise to develop a convention on when one technique should be used over the other for consistency
+    - Input Data - react to user events (one-way data binding)
       - Event Binding `(event)="method()"`
       - Event Binding `(event)="method($event)"`
       - `(event)` refers to a specific event defined by the html specification. `input`, `click`, and `keypress` are common events, see the [MDN event reference for more info](https://developer.mozilla.org/en-US/docs/Web/Events)
@@ -57,35 +58,38 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
     - Two-way-binding `[(ngModel)]="data"`
       - `FormsModule` must be added to the `imports[]` array in the AppModule
       - `FormsModule` is imported from `@angular/forms`
+      - This technique is referred to 'two-way-binding' because it essentially combines property and event binding, the data model is automatically updated based on user-driven events like typing text into an input field
   - Introduction to **Directives** - instructions in the DOM
     - Built-in structural directives, ngIf and ng-template (if-else template), uses * to denote it is a structural binding
       - ngIf - `<p *ngIf="business-logic"></p>` where `business-logic` is code that evals to a boolean
-      - else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is a marker inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
-      - *IMPORTANT DISTINCTION* - structural directives completely add or remove selectors from the DOM
-    - Built-in attribute directives, ngStyle, uses [] similar to property binding
+      - else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is a marked with # inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
+      - *IMPORTANT DISTINCTION* - structural directives completely add or remove selectors from the DOM, they are not just simply made invisible
+    - Built-in attribute directives, ngStyle, uses [] similar to property binding notation
       - `[ngStyle]="{'background-color': getColor()}"`, notice the method call getColor() is not wrapped in quotes
       - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
     - Built-in structural directive, ngFor
       - `<app-server *ngFor="let server of servers"></app-server>`
       - use the reserved work `index` to gain access to the iteration number: `<app-server *ngFor="let server of servers; let i = index"></app-server>`
-3. **Course Project - The Basics (ac)**
+3. **Course Project - The Basics**
+  - The course project is revisited several times during this course, therefore, only one directory will be setup and updated
+  - Completed modules will be identified in version control
 4. **Debugging (ad)**
 5. **Components & Databinding Deep Dive (ae)**
 6. **Course Project - Components & Databinding (af)**
 7. **Directives Deep Directives (ag)**
-8. **Course Project - Directives (ah)**
+8. **Course Project - Directives**
 9. **Using Services & Dependency Injection (ai)**
-10. **Course Project - Services & Dependency Injection (aj)**
+10. **Course Project - Services & Dependency Injection**
 11. **Changes Pages with Routing (ak)**
-12. **Course Project - Routing (al)**
+12. **Course Project - Routing**
 13. **Understanding Observables (am)**
-14. **Course Project - Observables (an)**
+14. **Course Project - Observables**
 15. **Handling Forms in Angular Apps (ao)**
-16. **Course Project - Forms (ap)**
+16. **Course Project - Forms**
 17. **Using Pipes to Transform Output (aq)**
 18. **Making HTTP Requests (ar)**
-19. **Course Project - HTTP (as)**
+19. **Course Project - HTTP**
 20. **Authentication & Route Protection in Angular Apps (at)**
 21. **Using Angular Modules & Optimizing Apps (au)**
 22. **Deploying an Angular App (av)**
