@@ -44,7 +44,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
          selector: '.app-servers'  // by class     <div class='app-servers'> </div>
 
  - What is databinding? Databinding = Communication between your business logic and the html template
- - Four types of **databinding**
+ - Four types of **Databinding**
     - Output Data (one-way data binding)
       - Interpolation `{{ data }}`
       - Property Binding `[property]="data"`
@@ -60,17 +60,20 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - `FormsModule` is imported from `@angular/forms`
       - This technique is referred to 'two-way-binding' because it essentially combines property and event binding, the data model is automatically updated based on user-driven events like typing text into an input field
   - Introduction to **Directives** - "directives give instructions to the DOM"
-    - Built-in structural directives, ngIf and ng-template (if-else template), uses * to denote it is a structural binding
-      - ngIf - `<p *ngIf="business-logic"></p>` where `business-logic` is code that evals to a boolean
-      - else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is a marked with # inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
+    - Built-in structural directives, `*ngIf` and `<ng-template>` (if-else template), uses * to denote it is a structural binding
+      - if - `<p *ngIf="business-logic"></p>` where `business-logic` is code that evals to a boolean
+      - if-else - `<p *ngIf="business-logic; else somethingElse"></p>` where somethingElse is marked with # inside a ng-template selector, for example `<ng-template #somethingElse></ng-template>`
       - *IMPORTANT DISTINCTION* - structural directives completely add or remove selectors from the DOM, they are not just simply made invisible
-    - Built-in attribute directives, ngStyle, uses [] similar to property binding notation
+    - Built-in attribute directives, `[ngStyle]`, uses square brackets [] similar to property binding notation
       - `[ngStyle]="{'background-color': getColor()}"`, notice the method call getColor() is not wrapped in quotes
       - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
-    - Built-in structural directive, ngFor
+    - Built-in structural directive, `ngFor`
       - `<app-server *ngFor="let server of servers"></app-server>`
-      - use the reserved work `index` to gain access to the iteration number: `<app-server *ngFor="let server of servers; let i = index"></app-server>`
+      - use the reserved work `index` to gain access to the iteration number:
+      
+            <app-server *ngFor="let server of servers; let i = index"></app-server>
+      
 3. **Course Project - The Basics**
   - The course project is revisited several times during this course, therefore, only one directory will be setup and updated
   - Completed modules will be identified in version control
