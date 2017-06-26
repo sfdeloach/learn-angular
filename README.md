@@ -69,8 +69,10 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
     - Built-in structural directive, `*ngFor`
-      - `<app-server *ngFor="let server of servers"></app-server>`
-      - use the reserved work `index` to gain access to the iteration number:
+    
+          <app-server *ngFor="let server of servers"></app-server>
+      
+      - use the reserved word `index` to gain access to the iteration number:
       
             <app-server *ngFor="let server of servers; let i = index"></app-server>
       
