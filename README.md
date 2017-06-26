@@ -69,16 +69,34 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
     - Built-in structural directive, `*ngFor`
-    
+
           <app-server *ngFor="let server of servers"></app-server>
-      
+
       - use the reserved word `index` to gain access to the iteration number:
-      
+
             <app-server *ngFor="let server of servers; let i = index"></app-server>
-      
+
 3. **Course Project - The Basics**
-  - The course project is revisited several times during this course, therefore, only one directory will be setup and updated
-  - Completed modules will be identified in version control
+  - The course project is revisited several times during this course, therefore, only one project directory will be used with sections identified through version control
+  - A new TypeScript feature introduced wherein a shortcut can be used to define a class.  In the traditional sense, a class is defined as follows:
+
+         export class MyClass {
+             public name: string;
+             public quantity: number;
+
+             constructor(name: string, quantity: number) {
+                 this.name = name;
+                 this.quantity = quantity;
+             }
+         }
+
+  - The same class can be succinctly defined as:
+
+         export class MyClass{
+             constructor(public name: string, public quantity: number) {}
+         }
+
+  - An important topic that will be addressed in future versions of the class project include learning how components can exchange data with each other.
 4. **Debugging (ad)**
 5. **Components & Databinding Deep Dive (ae)**
 6. **Course Project - Components & Databinding (af)**
