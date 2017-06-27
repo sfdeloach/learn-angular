@@ -7,12 +7,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   servers: string[] = [];
+  serverNumber: number = 0;
 
   onAddServer() {
-    this.servers.push('Another Server');
+    this.servers.push(`Server #${this.serverNumber}`);
+    this.serverNumber += 1;
   }
 
   onRemoveServer(id: number) {
     this.servers.splice(id, 1);
+    if (this.servers.length === 0) {
+        this.serverNumber = 0;
+    }
   }
 }

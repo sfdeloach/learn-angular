@@ -1,0 +1,36 @@
+compiler.es5.js:1689 Uncaught Error: Template parse errors:
+Can't bind to 'element' since it isn't a known property of 'app-server-element'.
+1. If 'app-server-element' is an Angular component and it has 'element' input, then verify that it is part of this module.
+2. If 'app-server-element' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component. ("    <div class="col-xs-12">
+      <app-server-element *ngFor="let serverElement of serverElements" [ERROR ->][element]="serverElement"></app-server-element>
+    </div>
+  </div>
+"): ng:///AppModule/AppComponent.html@5:71
+    at syntaxError (http://localhost:4200/vendor.bundle.js:30728:34)
+    at TemplateParser.parse (http://localhost:4200/vendor.bundle.js:41840:19)
+    at JitCompiler._compileTemplate (http://localhost:4200/vendor.bundle.js:55885:39)
+    at http://localhost:4200/vendor.bundle.js:55805:62
+    at Set.forEach (native)
+    at JitCompiler._compileComponents (http://localhost:4200/vendor.bundle.js:55805:19)
+    at http://localhost:4200/vendor.bundle.js:55692:19
+    at Object.then (http://localhost:4200/vendor.bundle.js:30718:156)
+    at JitCompiler._compileModuleAndComponents (http://localhost:4200/vendor.bundle.js:55691:26)
+    at JitCompiler.compileModuleAsync (http://localhost:4200/vendor.bundle.js:55620:37)
+syntaxError @ compiler.es5.js:1689
+TemplateParser.parse @ compiler.es5.js:12801
+JitCompiler._compileTemplate @ compiler.es5.js:26846
+(anonymous) @ compiler.es5.js:26766
+JitCompiler._compileComponents @ compiler.es5.js:26766
+(anonymous) @ compiler.es5.js:26653
+then @ compiler.es5.js:1679
+JitCompiler._compileModuleAndComponents @ compiler.es5.js:26652
+JitCompiler.compileModuleAsync @ compiler.es5.js:26581
+PlatformRef_._bootstrapModuleWithZone @ core.es5.js:4595
+PlatformRef_.bootstrapModule @ core.es5.js:4581
+107 @ main.ts:11
+__webpack_require__ @ bootstrap ad1e9b4cb0c23bdca4ce:52
+251 @ main.bundle.js:166
+__webpack_require__ @ bootstrap ad1e9b4cb0c23bdca4ce:52
+webpackJsonpCallback @ bootstrap ad1e9b4cb0c23bdca4ce:23
+(anonymous) @ main.bundle.js:1

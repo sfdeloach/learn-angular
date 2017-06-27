@@ -1,3 +1,4 @@
+
 # learn-angular
 
 Collection of work from Udemy's Angular 4 - The complete guide by Maximilian Schwarzmüller
@@ -6,9 +7,10 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
 > Master Angular (both Angular 4 and Angular 2) and build awesome, reactive web apps with the successor of Angular.js
 
+---
 ## Course Content
 
-1. **Getting Started (aa)**
+### 1. Getting Started (aa)
  - create and serve a new project:
 
          ng new aa-get-start
@@ -20,7 +22,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
          npm install --save bootstrap
          npm install --save font-awesome // (optional)
 
-2. **The Basics (ab)**
+### 2. The Basics (ab)
  - create a new component called server, a new directory under the app folder (not using cli tool)
  - model the same files found under the app folder using a similar naming convention for ts, html, and css files
  - modules are used to bundle components
@@ -50,6 +52,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - Property Binding `[property]="data"`
       - `data` is a property or method() in the app.component.ts namespace
       - In most cases, either technique can be used to achieve the same result, it would be wise to develop a convention on when one technique should be used over the other for consistency
+      - When using property binding, keep in mind you are able to assign data to any property that belongs to the selector it is assigned to. In the case of standard html selectors, a reference should be consulted to discover the possible properties available to you. **However**, in the case of a custom selector such as `<app-server>`, the properties available include the custom designed properties located in its corresponding TypeScript file. For an example of this, refer to lesson 5.61 "Binding custom properties".
     - Input Data - react to user events (one-way data binding)
       - Event Binding `(event)="method()"`
       - Event Binding `(event)="method($event)"`
@@ -68,15 +71,12 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - `[ngStyle]="{'background-color': getColor()}"`, notice the method call getColor() is not wrapped in quotes
       - `[ngClass]="{'class-name': <boolean>}"`, the CSS class-name will be attached to the selector if `<boolean>` code evaluates to true
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
-    - Built-in structural directive, `*ngFor`
+    - Built-in structural directive, `*ngFor`, when this directive is used inside of a selector, the selector itself and all its children will be repeated in the DOM, use the reserved word `index` to gain access to the loop index number:  
 
-          <app-server *ngFor="let server of servers"></app-server>
+      `<div *ngFor="let server of servers"></div>`  
+      `<div *ngFor="let server of servers; let i = index"></div>`  
 
-      - use the reserved word `index` to gain access to the iteration number:
-
-            <app-server *ngFor="let server of servers; let i = index"></app-server>
-
-3. **Course Project - The Basics**
+### 3. Course Project - The Basics
   - The course project is revisited several times during this course, therefore, only one project directory will be used with sections identified through version control
   - A new TypeScript feature introduced wherein a shortcut can be used to define a class.  In the traditional sense, a class is defined as follows:
 
@@ -98,58 +98,93 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
   - An important topic that will be addressed in future versions of the class project include learning how components can exchange data with each other.
 
-4. **Debugging (ad)**
+### 4. Debugging (ad)
   - Using the 'Sources' tab in Chrome Dev Tools, breakpoints can be set allowing you to  step through your code
   - In the dev stage, Sourcemaps are provided under the webpack section, your TypeScript code can be found in its original form under the '.' folder
 
-5. **Components & Databinding Deep Dive (ae)**
+### 5. Components & Databinding Deep Dive (ae)
 
-6. **Course Project - Components & Databinding (af)**
+*Binding to custom properties*: A component's properties (and methods?) are only visible in its own html and ts files by default. Properties (and methods?) of children components can be exposed to their parents by using the decorator `@Input()` in their class definitions:
+```
+import { Component, OnInit, Input } from '@angular/core'; // import Input from core
+...
+selector: 'app-server-element',
+...
+export class ServerElementComponent implements OnInit {
+@Input() element: { type: string, name: string, content: string };
+constructor() { }
+...
+}
+```
+In this example, `[element]` is now a visible property inside the selector tags `<app-server-element>`:
+```
+<app-server-element  
+  *ngFor="let serverElement of serverElements"   
+  [element]="serverElement"  
+></app-server-element>
+```
+*Lesson learned* - not using an up-to-date Angluar CLI may not automatically update changes in your project, make sure the CLI is current and save yourself the headache!
 
-7. **Directives Deep Directives (ag)**
+*Assigning an Alias to Custom Properties*: The property name can be given an alias if needed. Here, the alias `srvElement` is passed as an argument to the `@Input` decorator:
+```
+...
+export class ServerElementComponent implements OnInit {
+@Input('srvElement') element: { type: string, name: string, content: string };
+...
+```
+Now the alias can be used in the template:
+```
+<app-server-element  
+  *ngFor="let serverElement of serverElements"   
+  [srvElement]="serverElement"
+></app-server-element>
+```
+### 6. Course Project - Components & Databinding (af)
 
-8. **Course Project - Directives**
+### 7. Directives Deep Directives (ag)
 
-9. **Using Services & Dependency Injection (ai)**
+### 8. Course Project - Directives
 
-10. **Course Project - Services & Dependency Injection**
+### 9. Using Services & Dependency Injection (ai)
 
-11. **Changes Pages with Routing (ak)**
+### 10. Course Project - Services & Dependency Injection
 
-12. **Course Project - Routing**
+### 11. Changes Pages with Routing (ak)
 
-13. **Understanding Observables (am)**
+### 12. Course Project - Routing
 
-14. **Course Project - Observables**
+### 13. Understanding Observables (am)
 
-15. **Handling Forms in Angular Apps (ao)**
+### 14. Course Project - Observables
 
-16. **Course Project - Forms**
+### 15. Handling Forms in Angular Apps (ao)
 
-17. **Using Pipes to Transform Output (aq)**
+### 16. Course Project - Forms
 
-18. **Making HTTP Requests (ar)**
+### 17. Using Pipes to Transform Output (aq)
 
-19. **Course Project - HTTP**
+### 18. Making HTTP Requests (ar)
 
-20. **Authentication & Route Protection in Angular Apps (at)**
+### 19. Course Project - HTTP
 
-21. **Using Angular Modules & Optimizing Apps (au)**
+### 20. Authentication & Route Protection in Angular Apps (at)
 
-22. **Deploying an Angular App (av)**
+### 21. Using Angular Modules & Optimizing Apps (au)
 
-23. **Angular Animations (aw)**
+### 22. Deploying an Angular App (av)
 
-24. **A Basic Introduction to Unit Testing in Angular Apps (ax)**
+### 23. Angular Animations (aw)
 
-25. **Course Roundup (ay)**
+### 24. A Basic Introduction to Unit Testing in Angular Apps (ax)
 
-26. **About the Course Update & Angular 4 (az)**
+### 25. Course Roundup (ay)
 
-27. **Custom Project & Workflow Setup (ba)**
+### 26. About the Course Update & Angular 4 (az)
 
-28. **Bonus: TypeScript Introduction (bc)**
+### 27. Custom Project & Workflow Setup (ba)
+
+### 28. Bonus: TypeScript Introduction (bc)
  - install TypeScript module globally to transpile ts files into JavaScript:
         npm install -g typescript
         tsc example-typescript-file.ts
- - Topics covered: classes, interfaces, exports, generics, types
+ - Topics covered: classes, interfaces, exports, generics, type
