@@ -103,8 +103,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
   - In the dev stage, Sourcemaps are provided under the webpack section, your TypeScript code can be found in its original form under the '.' folder
 
 ### 5. Components & Databinding Deep Dive (ae)
-
-*Binding to custom properties*: A component's properties (and methods?) are only visible in its own html and ts files by default. Properties (and methods?) of children components can be exposed to their parents by using the decorator `@Input()` in their class definitions:
+**Custom property binding** - A component's properties are only visible in its own html and ts files by default. Properties of children components can be exposed to their parents by using the decorator `@Input()` or `@Output()` in their class definitions:
 ```
 import { Component, OnInit, Input } from '@angular/core'; // import Input from core
 ...
@@ -123,9 +122,9 @@ In this example, `[element]` is now a visible property inside the selector tags 
   [element]="serverElement"  
 ></app-server-element>
 ```
-*Lesson learned* - not using an up-to-date Angluar CLI may not automatically update changes in your project, make sure the CLI is current and save yourself the headache!
+**Lesson learned** - not using an up-to-date Angluar CLI may not automatically update changes in your project, make sure the CLI is current and save yourself the headache!
 
-*Assigning an Alias to Custom Properties*: The property name can be given an alias if needed. Here, the alias `srvElement` is passed as an argument to the `@Input` decorator:
+**Custom Property Aliases** - The property name can be given an alias if needed. Here, the alias `srvElement` is passed as an argument to the `@Input` decorator:
 ```
 ...
 export class ServerElementComponent implements OnInit {
@@ -139,6 +138,69 @@ Now the alias can be used in the template:
   [srvElement]="serverElement"
 ></app-server-element>
 ```
+When sending, or outputting, properties from a child component to a parent component, it is typically initiated by an event, such as the click of a button.  A method in the child component model should emit this event via a property setup with the special decorator function `@Output()`:
+```
+// This happens second, sending the object 'T' to parent view as an $event object
+@Output() serverCreated = new EventEmitter<{T}>();
+...
+// This happens first when the user clicks a button
+onClick() {
+  this.serverCreated.emit({T});
+}
+```
+**View encapsulation** - by default, each component's CSS style is encapsulated. This is the preferred behavior for most projects. If for some reason you wish to override this default, it can be changed in the `@Component({})` decorator with the following line:
+```
+encapsulation: ViewEncapsulation.None // Native and Emulated are also options (Emulated is the default)
+```  
+**Local reference** is a feature to gain access to elements in the template for use in another location in the template or for use in the TypeScript file. This can be used in lieu of two-way databinding since it may only be necessary to read a value when a particular event occurs. Local references were seen briefly before in the course during the discusson on structural directives (if-else templates) and are defined with a hash mark. After defining a local reference, the hash mark is no longer used, and in this example, the model gains access to this HTMLInputElement object when it is passed in the `onAddServer()` method call:
+```
+<input type="text" class="form-control" #serverNameInput>
+...
+<button (click)="onAddServer(serverNameInput)">Add Server</button>
+```
+**@ViewChild()** - another way to get access to html elements besides local references plus it does not depend on being passed via a method argument as illustrated above. This method only works on a model and view in the same component:
+```
+(html file - located in component A)
+<input type="text" class="form-control" #serverContentInput>
+```
+```
+(ts file - located in component B)
+@Component({...})
+export class CockpitComponent {
+  @ViewChild('serverContentInput') contentInput: ElementRef;
+  ...
+  console.log(this.contentInput.nativeElement); // full access to the original DOM element is available via nativeElement (TODO: double check this comment)
+}
+```
+**ng-content** - used as a hook in a child template if code in the parent template needs access to properties only accessible in the child model. This tool can be used in lieu of binding parent-child properties.  
+
+
+**Component Lifecyle** - A list of methods, also called 'hooks', available once implemented via interface in your component class. All interfaces are imported from `@angular/core`:
+- `ngOnChanges(changes: SimpleChanges)`, Called after a bound input property changes, only method that receives an argument, available via `OnChanges` interface
+- `ngOnInit()`, Called once the component is initialized, occurs after the constructor is called, available via `OnInit` interface
+- `ngDoCheck()`, Called during every change detection run, available via `DoCheck` interface
+- `ngAfterContentInit()`, Called after content (ng-content) has been projected into ViewChild, available via `AfterContentInit` interface
+- `ngAfterContentChecked()`, Called every time the projected content has been checked, available via `AfterContentChecked` interface
+- `ngAfterViewInit()`, Called after the component's view (and child views) has been initialized, available via `AfterViewInit` interface
+- `ngAfterViewChecked()`, Called every time the view (and child views) have been checked, available via `AfterViewChecked` interface
+- `ngOnDestroy`, Called once the component is about to be destroyed, available via `OnDestroy` interface
+
+**@ContentChild()** - similar to `@ViewChild()`, this decorator function allows a child model to gain access to a DOM element located in a parent component:
+```
+(html file - parent component)
+<p #contentParagraph>
+...
+</p>
+```
+```
+(ts file - child component)
+@Component({...})
+export class ServerElementComponent {
+  @ContentChild('contentParagraph') paragraph: ElementRef;
+  ...
+}
+```
+
 ### 6. Course Project - Components & Databinding (af)
 
 ### 7. Directives Deep Directives (ag)
