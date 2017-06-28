@@ -103,7 +103,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
   - In the dev stage, Sourcemaps are provided under the webpack section, your TypeScript code can be found in its original form under the '.' folder
 
 ### 5. Components & Databinding Deep Dive (ae)
-**Custom property binding** - A component's properties are only visible in its own html and ts files by default. Properties of children components can be exposed to their parents by using the decorator `@Input()` or `@Output()` in their class definitions:
+**Custom property binding** - A component's properties are only visible in its own html and ts files by default. Properties of children components can be passed back and forth to their parents by using the decorator `@Input()` or `@Output()` in their class definitions:
 ```
 import { Component, OnInit, Input } from '@angular/core'; // import Input from core
 ...
@@ -138,7 +138,7 @@ Now the alias can be used in the template:
   [srvElement]="serverElement"
 ></app-server-element>
 ```
-When sending, or outputting, properties from a child component to a parent component, it is typically initiated by an event, such as the click of a button.  A method in the child component model should emit this event via a property setup with the special decorator function `@Output()`:
+When a child component outputs properties to a parent component, it is typically initiated by an event, such as the click of a button.  A method in the child component model should emit this event via a property setup with the special decorator function `@Output()`:
 ```
 // This happens second, sending the object 'T' to parent view as an $event object
 @Output() serverCreated = new EventEmitter<{T}>();
@@ -152,19 +152,19 @@ onClick() {
 ```
 encapsulation: ViewEncapsulation.None // Native and Emulated are also options (Emulated is the default)
 ```  
-**Local reference** is a feature to gain access to elements in the template for use in another location in the template or for use in the TypeScript file. This can be used in lieu of two-way databinding since it may only be necessary to read a value when a particular event occurs. Local references were seen briefly before in the course during the discusson on structural directives (if-else templates) and are defined with a hash mark. After defining a local reference, the hash mark is no longer used, and in this example, the model gains access to this HTMLInputElement object when it is passed in the `onAddServer()` method call:
+**Local reference** is a feature to gain access to elements in the template for use in another location in the template or for use in the TypeScript file. This can be used in lieu of two-way databinding since it may only be necessary to read a value when a particular event occurs. Local references were seen briefly before in the course during the discusson on structural directives (if-else templates) and are defined with a hash mark. After defining a local reference, the hash mark is no longer used. In this example, the model gains access to this HTMLInputElement object when it is passed in the `onAddServer()` method call:
 ```
 <input type="text" class="form-control" #serverNameInput>
 ...
 <button (click)="onAddServer(serverNameInput)">Add Server</button>
 ```
-**@ViewChild()** - another way to get access to html elements besides local references plus it does not depend on being passed via a method argument as illustrated above. This method only works on a model and view in the same component:
+**@ViewChild()** - this is another technique to gain access to html elements besides local references. It also has the advantage of not depending on being first passed via a method argument as illustrated above. This technique only works on a model and view in the same component:
 ```
 (html file - located in component A)
 <input type="text" class="form-control" #serverContentInput>
 ```
 ```
-(ts file - located in component B)
+(ts file - also located in component A)
 @Component({...})
 export class CockpitComponent {
   @ViewChild('serverContentInput') contentInput: ElementRef;
@@ -175,9 +175,9 @@ export class CockpitComponent {
 **ng-content** - used as a hook in a child template if code in the parent template needs access to properties only accessible in the child model. This tool can be used in lieu of binding parent-child properties.  
 
 
-**Component Lifecyle** - A list of methods, also called 'hooks', available once implemented via interface in your component class. All interfaces are imported from `@angular/core`:
+**Component Lifecyle** - A list of methods, also called 'hooks', available once implemented via an interface in your component class. All interfaces are imported from `@angular/core` and their order of execution generally follow this list after the constructor is complete with its execution:
 - `ngOnChanges(changes: SimpleChanges)`, Called after a bound input property changes, only method that receives an argument, available via `OnChanges` interface
-- `ngOnInit()`, Called once the component is initialized, occurs after the constructor is called, available via `OnInit` interface
+- `ngOnInit()`, Called once the component is initialized, available via `OnInit` interface
 - `ngDoCheck()`, Called during every change detection run, available via `DoCheck` interface
 - `ngAfterContentInit()`, Called after content (ng-content) has been projected into ViewChild, available via `AfterContentInit` interface
 - `ngAfterContentChecked()`, Called every time the projected content has been checked, available via `AfterContentChecked` interface
@@ -185,7 +185,7 @@ export class CockpitComponent {
 - `ngAfterViewChecked()`, Called every time the view (and child views) have been checked, available via `AfterViewChecked` interface
 - `ngOnDestroy`, Called once the component is about to be destroyed, available via `OnDestroy` interface
 
-**@ContentChild()** - similar to `@ViewChild()`, this decorator function allows a child model to gain access to a DOM element located in a parent component:
+**@ContentChild()** - similar to `@ViewChild()`, however, this decorator function allows a child model to gain access to a DOM element located in a parent component:
 ```
 (html file - parent component)
 <p #contentParagraph>
