@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="list-group">
+      <div *ngFor="let log of logs" [ngClass]="{
+        'list-group-item': true,
+        'list-group-item-success': log.type === 'success',
+        'list-group-item-warning': log.type === 'warning',
+        'list-group-item-danger': log.type === 'danger'
+      }">
+        <h5 class="list-group-item-heading">calculated on {{ log.timestamp }}</h5>
+        <h4 class="list-group-item-text text-center">{{ log.a }}<sup>2</sup> + {{ log.b }}<sup>2</sup> = {{ log.c }}<sup>2</sup></h4>
+    </div>
+    </div>
+  </div>
+</div>

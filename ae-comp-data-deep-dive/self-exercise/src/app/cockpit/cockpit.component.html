@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="jumbotron">
+      <h1><span class="glyphicon glyphicon-console" aria-hidden="true"></span> Hello, Angular!</h1>
+      <p>An simple Angular project demonstrating custom property and event binding.</p>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="form-group">
+            <label for="a">a</label>
+            <input type="number" class="form-control" id="a" [(ngModel)]="a">
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <label for="b">b</label>
+            <input type="number" class="form-control" id="b" [(ngModel)]="b">
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <label for="c">c</label>
+            <input type="number" class="form-control" id="c" disabled="true" [value]="calculate()">
+          </div>
+        </div>
+      </div>
+      <p>
+        <input class="btn btn-success btn-lg" type="button" value="Success" (click)="onAddLog('success')">
+        <input class="btn btn-warning btn-lg" type="button" value="Warning" (click)="onAddLog('warning')">
+        <input class="btn btn-danger btn-lg" type="button" value="Danger" (click)="onAddLog('danger')">
+      </p>
+    </div>
+  </div>
+</div>
