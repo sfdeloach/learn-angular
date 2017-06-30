@@ -1,8 +1,12 @@
 <div class="jumbotron">
-  <h2 class="text-center">Game Control</h2>
+  <h1 class="text-center">Game Control</h1>
   <p class="text-center">
     <button type="button" class="btn btn-success btn-lg" (click)="startCounter()">Start</button>
     <button type="button" class="btn btn-danger btn-lg" (click)="stopCounter()">Stop</button>
   </p>
-  <h3 class="text-center">{{ count }}</h3>
+  <h1 class="text-center">{{ count }}</h1>
+  <div>
+    <span [ngClass]="{'hide': !isOdd()}" class="glyphicon glyphicon-arrow-down pull-left" aria-hidden="true"></span>
+    <span [ngClass]="{'hide': isOdd()}" class="glyphicon glyphicon-arrow-down pull-right" aria-hidden="true"></span>
+  </div>
 </div>

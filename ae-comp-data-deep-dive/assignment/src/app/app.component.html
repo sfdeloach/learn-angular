@@ -1,15 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <app-game-control></app-game-control>
+      <app-game-control (countEmitter)="numberReceived($event)"></app-game-control>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-6">
-      <app-odd></app-odd>
+      <!-- Example of binding parent and child properties -->
+      <app-odd [numberArray]="oddNumbers"></app-odd>
     </div>
     <div class="col-xs-6">
-      <app-even></app-even>
+      <!-- Example of using ng-content where there is no binding of any properties from parent to child -->
+      <app-even>
+        <li class="list-group-item list-group-item-info text-center" *ngFor="let number of evenNumbers">
+          {{ number }}
+        </li>
+      </app-even>
     </div>
   </div>
 </div>

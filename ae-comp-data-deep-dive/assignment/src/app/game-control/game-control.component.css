@@ -1,0 +1,15 @@
+h1, h2 {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+.pull-left {
+  color: green;
+  font-size: 250%;
+  padding-left: 12.5vw;
+}
+
+.pull-right {
+  color: blue;
+  font-size: 250%;
+  padding-right: 12.5vw;
+}
