@@ -172,9 +172,25 @@ export class CockpitComponent {
   console.log(this.contentInput.nativeElement); // full access to the original DOM element is available via nativeElement (TODO: double check this comment)
 }
 ```
-**ng-content** - used as a hook in a child template if code in the parent template needs access to properties only accessible in the child model. This tool can be used in lieu of binding parent-child properties.  
-
-
+**ng-content** - `<ng-content></ng-content>` selectors are used in a child template and act as a hook to its parent template. Code that appears between the child selectors in its parent view will appear in place of the `<ng-content></ng-content>` selectors. This allows the child to have direct access to the parent's properties. This is a tool that can be used in lieu of binding parent-child properties.  
+```
+(child view named even.component.html)
+<div class="jumbotron">
+  <h2 class="text-center">Even Numbers</h2>
+  <ul class="list-group">
+    <ng-content></ng-content>
+  </ul>
+</div>
+```
+(parent view)
+<!-- 'evenNumbers' is an array property located in the parent component -->
+<!-- the <li> element here will appear in place of the <ng-content> element located in the child -->
+<app-even>
+  <li class="list-group-item list-group-item-info text-center" *ngFor="let number of evenNumbers">
+    {{ number }}
+  </li>
+</app-even>
+```
 **Component Lifecyle** - A list of methods, also called 'hooks', available once implemented via an interface in your component class. All interfaces are imported from `@angular/core` and their order of execution generally follow this list after the constructor is complete with its execution:
 - `ngOnChanges(changes: SimpleChanges)`, Called after a bound input property changes, only method that receives an argument, available via `OnChanges` interface
 - `ngOnInit()`, Called once the component is initialized, available via `OnInit` interface
