@@ -182,6 +182,7 @@ export class CockpitComponent {
   </ul>
 </div>
 ```
+```
 (parent view)
 <!-- 'evenNumbers' is an array property located in the parent component -->
 <!-- the <li> element here will appear in place of the <ng-content> element located in the child -->
