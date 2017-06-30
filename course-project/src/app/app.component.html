@@ -1,9 +1,20 @@
-<app-header></app-header>
+<app-header (onHeaderClick)="onHeaderClick($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-        <app-recipes></app-recipes>
-        <app-shopping-list></app-shopping-list>
+      <div *ngIf="visibleComponent === 'Recipe Book'">
+        <div class="jumbotron">
+          <h1 class="text-center">Welcome to Recipe Book</h1>
+          <p>Bacon ipsum dolor amet cupim landjaeger frankfurter jowl pig, pork belly pork loin capicola t-bone turducken turkey meatball andouille. Flank pork belly cupim jerky. Kielbasa bresaola biltong shankle jerky pork. Strip steak ham hock t-bone,
+            picanha ball tip cupim shoulder alcatra. Andouille jowl hamburger doner ham hock, beef ham. Fatback boudin picanha turkey sirloin cupim. Cow chicken flank pork loin, swine shankle meatball sirloin bacon shank pork biltong brisket jerky spare
+            ribs.</p>
+          <p>Shoulder jowl shank swine flank chicken, venison bresaola ham hock hamburger beef. Bresaola pastrami salami tongue rump, pork chop biltong. Filet mignon burgdoggen ribeye meatball. Brisket andouille frankfurter doner, kevin porchetta corned
+            beef. Ribeye spare ribs pastrami venison bresaola boudin meatball. Pork shank picanha, burgdoggen flank pork belly prosciutto shankle strip steak boudin bresaola beef fatback rump chicken.</p>
+          <p class="text-center"><a class="btn btn-success btn-lg" href="#" role="button">Get started now!</a></p>
+        </div>
+      </div>
+      <app-recipes *ngIf="visibleComponent === 'Recipes'"></app-recipes>
+      <app-shopping-list *ngIf="visibleComponent === 'Shopping List'"></app-shopping-list>
     </div>
   </div>
 </div>

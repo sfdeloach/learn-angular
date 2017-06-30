@@ -194,7 +194,7 @@ export class CockpitComponent {
 ```
 **Component Lifecyle** - A list of methods, also called 'hooks', available once implemented via an interface in your component class. All interfaces are imported from `@angular/core` and their order of execution generally follow this list after the constructor is complete with its execution:
 - `ngOnChanges(changes: SimpleChanges)`, Called after a bound input property changes, only method that receives an argument, available via `OnChanges` interface
-- `ngOnInit()`, Called once the component is initialized, available via `OnInit` interface
+- `ngOnInit()`, Called once the component is initialized, available via `OnInit` interface, this was useful in a case where a detailed display was dependent on a user's selection. On initial loading of the page, no item was selected to be displayed resulting in an 'undefined' error.  `ngOnInit()` was used to select the first item in an array to be displayed, avoiding the error.
 - `ngDoCheck()`, Called during every change detection run, available via `DoCheck` interface
 - `ngAfterContentInit()`, Called after content (ng-content) has been projected into ViewChild, available via `AfterContentInit` interface
 - `ngAfterContentChecked()`, Called every time the projected content has been checked, available via `AfterContentChecked` interface
