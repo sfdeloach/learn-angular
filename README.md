@@ -37,7 +37,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
          ng generate component <name of component>
 
  - components can be nested and combined in any combination
- - `template` or `templateUrl` must be present in the `@Component({})` decorator object, use the inline template property for convenience if the html code is not long
+ - `template` or `templateUrl` must be present in the `@Component({})` decorator function, use the inline template property for convenience if the html code is not long
  - `styles` or `styleUrl` is optional and only affects the specific component, use the inline styles template for convenience if the css code is not long
  - there are three options when creating component selectors in the html code, *element selectors* are most common:
 
@@ -161,15 +161,15 @@ encapsulation: ViewEncapsulation.None // Native and Emulated are also options (E
 **@ViewChild()** - this is another technique to gain access to html elements besides local references. It also has the advantage of not depending on being first passed via a method argument as illustrated above. This technique only works on a model and view in the same component:
 ```
 (html file - located in component A)
-<input type="text" class="form-control" #serverContentInput>
+<input type="text" class="form-control" #serverContentInput> // local reference defined here
 ```
 ```
 (ts file - also located in component A)
 @Component({...})
 export class CockpitComponent {
-  @ViewChild('serverContentInput') contentInput: ElementRef;
+  @ViewChild('serverContentInput') contentInput: ElementRef; // local reference with ElementRef type
   ...
-  console.log(this.contentInput.nativeElement); // full access to the original DOM element is available via nativeElement (TODO: double check this comment)
+  console.log(this.contentInput.nativeElement);              // access to the element available via nativeElement
 }
 ```
 **ng-content** - `<ng-content></ng-content>` selectors are used in a child template and act as a hook to its parent template. Code that appears between the child selectors in its parent view will appear in place of the `<ng-content></ng-content>` selectors. This allows the child to have direct access to the parent's properties. This is a tool that can be used in lieu of binding parent-child properties.  
