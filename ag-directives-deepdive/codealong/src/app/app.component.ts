@@ -11,6 +11,18 @@ export class AppComponent {
 
   toggleOdd(): void {
     this.oddNumbers = !this.oddNumbers;
-    console.log(this.oddNumbers);
+  }
+
+  getNumbers(option: string): number[] {
+    if (option === 'odd') {
+      let result: number[] = [];
+      this.numbers.forEach((val) => {
+        if (val % 2 !== 0) {
+          result.push(val);
+        }
+      });
+      return result;
+    }
+    return this.numbers;
   }
 }

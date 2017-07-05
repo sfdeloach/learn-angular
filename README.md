@@ -227,6 +227,118 @@ export class ServerElementComponent {
 - Structural Directives
   - Looks like a normal HTML attribute but has a leading * (for desugaring)
   - Affects a whole area in the DOM (elements get added/removed)
+- Custom Attribute Directives - use Renderer2 (better than directly modifying the element ref because it works beyond the browser DOM)
+
+```
+// directive file created using ng generate directive better-highlight
+import { Directive, OnInit, Renderer2, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appBetterHighlight]' // used in html file <p appBetterHighlight>
+})
+export class BetterHighlightDirective implements OnInit {
+  // creating properties shortcut
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', '#337ab7');
+    this.renderer.setStyle(this.elRef.nativeElement, 'color', 'white');
+  }
+}
+```
+- Using HostListener - Angular will invoke the decorated method when the host element emits the specified event
+
+```
+@HostListener('mouseenter') mouseover(eventData: Event) {
+  this.renderer.setStyle(this.elRef.nativeElement, 'background-color', '#337ab7');
+  this.renderer.setStyle(this.elRef.nativeElement, 'color', 'white');
+}
+
+@HostListener('mouseleave') mouseleave(eventData: Event) {
+  this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
+  this.renderer.setStyle(this.elRef.nativeElement, 'color', '#333');
+}
+```
+- Host Binding, using Renderer not necessary when using this technique, pay attention to the camel case
+
+```
+import { Directive, HostBinding, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appBetterHighlight]'
+})
+export class BetterHighlightDirective {
+  @HostBinding('style.backgroundColor') backgroundColor: string = "transparent"; // camelCase backgroundColor
+  @HostBinding('style.color') color: string = "#333";
+
+  constructor(private elRef: ElementRef) {}
+
+  // Angular will invoke the decorated method when the host element emits the specified event
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    this.backgroundColor = '#337ab7';
+    this.color = 'white';
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    this.backgroundColor = 'transparent';
+    this.color = '#333';
+  }
+}
+```
+
+- Custom property binding, setting a Directives property in the html file
+
+```
+(html file)
+<p appBetterHighlight [defaultColor]="'#337ab7'" [highlightColor]="'darkblue'">
+```
+
+```
+(directive file)
+import { Directive, HostBinding, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+
+@Directive({
+  selector: '[appBetterHighlight]'
+})
+export class BetterHighlightDirective implements OnInit {
+  @Input() defaultBackgroundColor: string = 'transparent';
+  @Input() highlightBackgroundColor: string = '#337ab7';
+  @Input() defaultColor: string; // set in the html via property binding
+  @Input() highlightColor: string = 'white';
+
+  @HostBinding('style.backgroundColor') backgroundColor: string = this.defaultBackgroundColor;
+  @HostBinding('style.color') color: string = this.defaultColor;
+
+  constructor(private elRef: ElementRef) {}
+
+  ngOnInit() {
+    this.color = this.defaultColor;
+  }
+
+  // Angular will invoke the decorated method when the host element emits the specified event
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    this.backgroundColor = this.highlightBackgroundColor;
+    this.color = this.highlightColor;
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    this.backgroundColor = this.defaultBackgroundColor;
+    this.color = this.defaultColor;
+  }
+}
+```
+
+- Building a custom structural binding called `unless` // TODO, lecture 91
+- Switch structural Directive
+
+```
+<div [ngSwitch]="value"> <!-- where value is a component property -->
+  <p *ngSwitchCase="5">Value is 5</p>
+  <p *ngSwitchCase="10">Value is 10</p>
+  <p *ngSwitchCase="15">Value is 15</p>
+  <p *ngSwitchDefault>Value is default</p>
+</div>
+```
 
 ### 8. Course Project - Directives
 
