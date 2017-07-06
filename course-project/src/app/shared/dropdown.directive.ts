@@ -1,24 +1,25 @@
-import { Directive, ElementRef, Input, HostListener } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostBinding,
+  HostListener
+} from '@angular/core';
 
 @Directive({
   selector: '[appDropdown]'
 })
 export class DropdownDirective {
-  toggle: boolean = false;
+  // HostBinding binds to any property available on elementRef.nativeElement
+  // ...use console.dir(elementRef.nativeElement) to see all available properties
+  @HostBinding('className') css: string = "btn-group dropup";
+  isVisible: boolean = false;
 
-  constructor(private elementRef: ElementRef) {
-    console.dir(elementRef.nativeElement);
-    // el.nativeElement.classList.add("open");
-  }
+  constructor(private elementRef: ElementRef) {}
 
-  @HostListener('onclick') onClick() {
-    console.log("received a click");
-    this.toggle = !this.toggle;
-    this.dropdown(this.toggle);
-  }
-
-  private dropdown(isVisible: boolean): void {
-    isVisible ? this.elementRef.nativeElement.classList.add("open") :
-      this.elementRef.nativeElement.classList.remove("open");
+  // HostListener binds to any event emitted by the element
+  // ...refer to the MDN event reference for details
+  @HostListener('click') click() {
+    this.isVisible = !this.isVisible;
+    this.isVisible ? this.css = "btn-group dropup open": this.css = "btn-group dropup";
   }
 }

@@ -11,12 +11,11 @@
 <div class="row">
   <div class="col-xs-12">
     <hr>
-    <div appDropdown class="btn-group dropup"><!-- .open to show dropdown menu -->
+    <div appDropdown><!-- CSS classes provided by custom directive -->
       <button type="button" class="btn btn-primary dropdown-toggle">
         Manage Recipe
         <span class="caret"></span>
       </button>
-      <hr>
       <ul class="dropdown-menu">
         <li>
           <a href="#">To Shopping List</a>
@@ -33,7 +32,9 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    {{ recipe.description }}
+    <p>
+      {{ recipe.description }}
+    </p>
   </div>
 </div>
 <div class="row">

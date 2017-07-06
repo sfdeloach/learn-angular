@@ -221,12 +221,18 @@ export class ServerElementComponent {
 ### 6. Course Project - Components & Databinding (af)
 
 ### 7. Directives Deep Directives (ag)
+- All components are directives with a view. In general, when we refer to a directive, it does not have a view/template.
 - Attribute Directives
   - Looks like a normal HTML attribute (possibly with databinding or event binding)
   - Only affects/changes the element they are added to
 - Structural Directives
   - Looks like a normal HTML attribute but has a leading * (for desugaring)
   - Affects a whole area in the DOM (elements get added/removed)
+- ngFor and ngIf recap
+ - These are built-in Structural Directives
+- Directive selectors
+ - `selector: '[appBasicHighlight]'` selector placed inside square brackets to signify Attribute style, brackets are not used in the html document when attaching directive to an element
+ -
 - Custom Attribute Directives - use Renderer2 (better than directly modifying the element ref because it works beyond the browser DOM)
 
 ```
@@ -246,7 +252,7 @@ export class BetterHighlightDirective implements OnInit {
   }
 }
 ```
-- Using HostListener - Angular will invoke the decorated method when the host element emits the specified event
+- Using HostListener - Angular will invoke the decorated method when the host element emits the specified event, refer to the [MDN Event Reference](https://developer.mozilla.org/en-US/docs/Web/Events) for a list of all possible events emitted. Common mouse events include: `'click'`, `'mouseenter'`, and `'mouseleave'`.
 
 ```
 @HostListener('mouseenter') mouseover(eventData: Event) {
