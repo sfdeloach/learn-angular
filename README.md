@@ -73,8 +73,10 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       - *IMPORTANT DISTINCTION* - attribute directives do not remove selectors from the DOM, only their attributes are changed
     - Built-in structural directive, `*ngFor`, when this directive is used inside of a selector, the selector itself and all its children will be repeated in the DOM, use the reserved word `index` to gain access to the loop index number:  
 
-      `<div *ngFor="let server of servers"></div>`  
-      `<div *ngFor="let server of servers; let i = index"></div>`  
+```
+      <div *ngFor="let server of servers"></div>
+      <div *ngFor="let server of servers; let i = index"></div>
+```
 
 ### 3. Course Project - The Basics
   - The course project is revisited several times during this course, therefore, only one project directory will be used with sections identified through version control
@@ -340,16 +342,76 @@ export class BetterHighlightDirective implements OnInit {
 
 ###### *Custom Structural Directives*
 
-- Building a custom structural binding called `unless` // TODO, lecture 91
-- Switch structural Directive
+**ng-template and its relationship to built-in structural directives explained**
+The star added to built-in structural directives like `*ngIf` and `*ngFor` is closely tied to the selector `<ng-template>`. `<ng-template>` is by default not displayed in the DOM, and we have seen previous examples of its use in if-else DOM manipulation. For an example to illustrate this, consider the following:
+
 
 ```
-<div [ngSwitch]="value"> <!-- where value is a component property -->
-  <p *ngSwitchCase="5">Value is 5</p>
-  <p *ngSwitchCase="10">Value is 10</p>
-  <p *ngSwitchCase="15">Value is 15</p>
-  <p *ngSwitchDefault>Value is default</p>
-</div>
+  <div *ngIf="someBooleanValue">
+    ...
+  </div>
+```
+
+In reality, this block of code is expanded to the following:
+
+
+```
+  <ng-template>
+    <div [ngIf]="someBooleanValue">
+      ...
+    </div>
+  </ng-template>
+```
+
+The `*ngIf` is transformed to the familiar property binding syntax and reveals what is truly happening behind the scenes. The star syntax can also be used for custom structural directives as well, which will be illustrated here shortly.
+
+**Building your own custom structural directive**
+A custom structural directive is similar to a custom attribute directive with some key differences in defining its properties. The property uses the keyword `set` and looks like a method, however, it is important to keep in mind that it is still a property. In this example, we create a new kind of a conditional similar to Ruby's `unless` statement, where a block of code is only executed if its condition evaluates to false. Also, it is important to provide the same name in the selector and the set property as seen below with `appUnless`:
+
+```
+TypeScript file:
+
+import {
+  Directive,
+  Input,
+  TemplateRef,
+  ViewContainerRef
+}
+
+@Directive({
+  selector: '[appUnless]' // notice this selector is the same name as the @Input() property below
+})                        // ...and follows the convention of appending 'app' at the front of the name
+export class UnlessDirective {
+  @Input() set appUnless(condition: boolean) {
+    if (!condition) {
+      this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.vcRef.clear();
+    }
+  }
+
+  constructor(private templateRef: TemplateRef<any>, private vcRef: ViewContainerRef) {};
+}
+```
+
+```
+HTML file:
+
+  <div *appUnless="someBooleanValue">
+    ...
+  </div>
+```
+
+**Switch structural Directive**
+An example of using a built-in switch directive:
+
+```
+  <div [ngSwitch]="value"> <!-- where value is a component property -->
+    <p *ngSwitchCase="5">Value is 5</p>
+    <p *ngSwitchCase="10">Value is 10</p>
+    <p *ngSwitchCase="15">Value is 15</p>
+    <p *ngSwitchDefault>Value is default</p>
+  </div>
 ```
 
 ### 8. Course Project - Directives

@@ -9,7 +9,9 @@ export class AppComponent {
   visibleComponent: string = "Recipes";
 
   onHeaderClick(evt: string) {
-    this.visibleComponent = evt;
+    if (["Recipe Book", "Recipes", "Shopping List"].includes(evt)) {
+      this.visibleComponent = evt;
+    }
 
     // switch (evt) {
     //   case 'Recipe Book': {
