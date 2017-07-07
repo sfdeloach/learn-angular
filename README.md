@@ -231,8 +231,7 @@ export class ServerElementComponent {
 - ngFor and ngIf recap
  - These are built-in Structural Directives
 - Directive selectors
- - `selector: '[appBasicHighlight]'` selector placed inside square brackets to signify Attribute style, brackets are not used in the html document when attaching directive to an element
- -
+ - `selector: '[appBasicHighlight]'` selector placed inside square brackets to signify attribute style, brackets are not used in the html document when attaching directive to an element. To understand  
 - Custom Attribute Directives - use Renderer2 (better than directly modifying the element ref because it works beyond the browser DOM)
 
 ```
