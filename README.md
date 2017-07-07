@@ -221,17 +221,22 @@ export class ServerElementComponent {
 ### 6. Course Project - Components & Databinding (af)
 
 ### 7. Directives Deep Directives (ag)
-- All components are directives with a view. In general, when we refer to a directive, it does not have a view/template.
-- Attribute Directives
-  - Looks like a normal HTML attribute (possibly with databinding or event binding)
-  - Only affects/changes the element they are added to
-- Structural Directives
-  - Looks like a normal HTML attribute but has a leading * (for desugaring)
-  - Affects a whole area in the DOM (elements get added/removed)
-- ngFor and ngIf recap
- - These are built-in Structural Directives
+- There are three types of Directives:
+ - **Components** - Directives with a view
+ - **Attribute Directives** - Looks like a normal HTML attribute (possibly with databinding or event binding) and only affects/changes the element they are added to
+ - **Structural Directives** - Looks like a normal HTML attribute but has a leading * (for desugaring) and affects a whole area in the DOM (elements get added/removed)
+- While all components are technically directives, in practice, when we refer to a directive, we are only referring to either attribute or structural directives.
+- Built-In Directives
+ - ngFor, ngIf, ngSwitch - these are built-in **Structural Directives**
+ - ngClass, ngStyle - these are built-in **Attribute Directives**
+
+----
+
+##### Custom Directives
+###### *Attribute Directives*
+
 - Directive selectors
- - `selector: '[appBasicHighlight]'` selector placed inside square brackets to signify attribute style, brackets are not used in the html document when attaching directive to an element. To understand  
+ - `selector: '[appBasicHighlight]'` selector placed inside square brackets to signify attribute style, brackets are not used in the html document when attaching directive to an element. To understand how Angular uses selectors, you need to first understand *CSS matching rules* to match a component/directive to a HTML element. In CSS to match to a specific element we would just type in the name of the element, so `input {...}` or `p{...}`.  Refer to this [CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.asp) for more info.
 - Custom Attribute Directives - use Renderer2 (better than directly modifying the element ref because it works beyond the browser DOM)
 
 ```
@@ -332,6 +337,8 @@ export class BetterHighlightDirective implements OnInit {
   }
 }
 ```
+
+###### *Custom Structural Directives*
 
 - Building a custom structural binding called `unless` // TODO, lecture 91
 - Switch structural Directive
