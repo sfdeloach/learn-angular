@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h4>{{ acct.name }}</h4>
+    <hr>
+    <p>This account is {{ acct.status }}.</p>
+    <button (click)="setStatus('active')" type="button" class="btn btn-default">
+      Set to 'active'
+    </button>
+    <button (click)="setStatus('inactive')" type="button" class="btn btn-default">
+      Set to 'inactive'
+    </button>
+    <button (click)="setStatus('unknown')" type="button" class="btn btn-default">
+      Set to 'unknown'
+    </button>
+  </div>
+</div>

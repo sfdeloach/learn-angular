@@ -418,6 +418,132 @@ An example of using a built-in switch directive:
 
 ### 9. Using Services & Dependency Injection (ai)
 
+#### What is a service?
+
+A service is a class defined in its own file that can provide properties and methods to components. This is an example of a service class:
+
+```
+import { Injectable } from '@angular/core';
+
+import { Account } from './account';
+import { LoggingService } from './logging.service';
+
+@Injectable()
+export class AccountsService {
+  accounts: Account[] = [
+    new Account('Master Account', 'active', 0),
+    new Account('Test Account', 'inactive', 1),
+    new Account('Hidden Account', 'unknown', 2)
+  ]
+
+  constructor(private logger: LoggingService) {}
+
+  pushAccount(account: Account) {
+    this.accounts.push(account);
+    this.logger.logStatusChange(account.status);
+  }
+
+  changeStatus(account: Account) {
+    this.accounts[account.id].status = account.status;
+    this.logger.logStatusChange(account.status);
+  }
+}
+```
+
+#### How are hierarchy and service instances related?
+
+An instance of a service is accessible when defined in the `providers` property in either the `@Component` or `@NgModule` decorator. Once defined there, the service instance is accessible in its defined parent and all of its children. Instances, if defined in children, are not propagated upwards and therefore are not accessible by its parent. If a child redefines a service that was already defined by a parent, it will overwrite the parent's instance with its own and they will not share the same properties. A service defined in the AppModule will be available application-wide, unless overwritten by a child.
+
+Here is an example of a service defined in the AppModule:
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { AccountComponent } from './account/account.component';
+import { NewAccountComponent } from './new-account/new-account.component';
+
+// Services imported here!!!
+import { AccountsService } from './shared/accounts.service';
+import { LoggingService } from './shared/logging.service';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    AccountComponent,
+    NewAccountComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [AccountsService, LoggingService], // Services now available application-wide!!!
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Here is an example of a service being used in the same application by a child component:
+
+```
+import {
+  Component,
+  Input
+} from '@angular/core';
+
+import { Account } from '../shared/account';
+import { AccountsService } from '../shared/accounts.service'; // Service is imported here!!!
+
+@Component({
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'] // Notice the 'providers' property is left undefined
+})
+export class AccountComponent {
+  @Input() acct: Account;
+
+  constructor(private accounter: AccountsService) {} // Dependeny injection used here in the constructor...
+                                                     // in order to gain access to the service instance
+  setStatus(newStatus) {
+    this.acct.status = newStatus;
+    this.accounter.changeStatus(this.acct); // This component now has access to any service property or method!!!
+  }
+}
+```
+
+#### When should you use the @Injectable() decorator?
+
+The `@Injectable` decorator is only necessary on services that depend on other services. In the example above (see `AccountsService`), this service is dependent on another service called `LoggingService`, so the `@Injectable` is used. Incidentally, the `LoggingService` (not shown) did not rely on any other services and does not use the `@Injectable` decorator.
+
+#### How can you use a service for cross-component communication?
+
+An event emitter property may be defined in a service. Components may then emit events by using the `.emit()` method when necessary. If another component subscribes to the event emitter in the service, it can receive the information that was originated in the emitting component, thus achieving cross-component communication.
+
+Event emitter defined in the service class as a property:
+
+```
+newAccountCreated: EventEmitter<string> = new EventEmitter<string>();
+```
+
+Event is emitted in a child class called `NewAccountComponent` when a new account is created:
+
+```
+// 'accounter' was defined in this component's constructor
+createAccount() {
+  this.accounter.newAccountCreated.emit(this.name.nativeElement.value);
+}
+```
+
+The emitted event sets off an anonymous "fat arrow" function by setting up a subscription in another component called `AccountComponent`:
+
+```
+ngOnInit() {
+  this.accounter.newAccountCreated.subscribe(
+    name => { console.log(`${name} was just created!`); }
+  );
+}
+```
+
 ### 10. Course Project - Services & Dependency Injection
 
 ### 11. Changes Pages with Routing (ak)
