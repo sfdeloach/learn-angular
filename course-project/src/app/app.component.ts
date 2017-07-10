@@ -6,31 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  visibleComponent: string = "Recipes";
+  visibleComponent: string = "Recipe Book";
 
   onHeaderClick(evt: string) {
     if (["Recipe Book", "Recipes", "Shopping List"].includes(evt)) {
       this.visibleComponent = evt;
     }
-
-    // switch (evt) {
-    //   case 'Recipe Book': {
-    //     console.log("TODO: recipe book not implemented");
-    //     break;
-    //   }
-    //   case 'Recipes': {
-    //     this.visibleComponent = "recipes";
-    //     break;
-    //   }
-    //   case 'Shopping List': {
-    //     this.visibleComponent = "shopping-list"
-    //     break;
-    //   }
-    //   case 'Manage': {
-    //     console.log("TODO: manage not implemented");
-    //     break;
-    //   }
-    //   // default condition not specified intentionally
-    // }
   }
 }
