@@ -30,10 +30,8 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     ShoppingEditComponent,
     DropdownDirective
   ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
+  imports: [BrowserModule],
+  providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

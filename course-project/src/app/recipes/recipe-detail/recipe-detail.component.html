@@ -17,15 +17,9 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li>
-          <a href="#">To Shopping List</a>
-        </li>
-        <li>
-          <a href="#">Edit Recipe</a>
-        </li>
-        <li>
-          <a href="#">Delete Recipe</a>
-        </li>
+        <li><span (click)="onToShoppingList()">To Shopping List</span></li> <!-- change back to a element? remember to delete the custom CSS -->
+        <li><a href="#">Edit Recipe</a></li>
+        <li><a href="#">Delete Recipe</a></li>
       </ul>
     </div>
   </div>
@@ -41,5 +35,10 @@
   <div class="col-xs-12">
     <h3>Ingredients</h3>
     <hr>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
+        {{ ingredient.name }} - {{ingredient.amount}}
+      </li>
+    </ul>
   </div>
 </div>

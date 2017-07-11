@@ -119,9 +119,9 @@ constructor() { }
 ```
 In this example, `[element]` is now a visible property inside the selector tags `<app-server-element>`:
 ```
-<app-server-element  
-  *ngFor="let serverElement of serverElements"   
-  [element]="serverElement"  
+<app-server-element
+  *ngFor="let serverElement of serverElements" 
+  [element]="serverElement"
 ></app-server-element>
 ```
 **Lesson learned** - not using an up-to-date Angluar CLI may not automatically update changes in your project, make sure the CLI is current and save yourself the headache!
@@ -135,8 +135,8 @@ export class ServerElementComponent implements OnInit {
 ```
 Now the alias can be used in the template:
 ```
-<app-server-element  
-  *ngFor="let serverElement of serverElements"   
+<app-server-element
+  *ngFor="let serverElement of serverElements" 
   [srvElement]="serverElement"
 ></app-server-element>
 ```
@@ -153,7 +153,7 @@ onClick() {
 **View encapsulation** - by default, each component's CSS style is encapsulated. This is the preferred behavior for most projects. If for some reason you wish to override this default, it can be changed in the `@Component({})` decorator with the following line:
 ```
 encapsulation: ViewEncapsulation.None // Native and Emulated are also options (Emulated is the default)
-```  
+```
 **Local reference** is a feature to gain access to elements in the template for use in another location in the template or for use in the TypeScript file. This can be used in lieu of two-way databinding since it may only be necessary to read a value when a particular event occurs. Local references were seen briefly before in the course during the discusson on structural directives (if-else templates) and are defined with a hash mark. After defining a local reference, the hash mark is no longer used. In this example, the model gains access to this HTMLInputElement object when it is passed in the `onAddServer()` method call:
 ```
 <input type="text" class="form-control" #serverNameInput>
@@ -545,6 +545,47 @@ ngOnInit() {
 ```
 
 ### 10. Course Project - Services & Dependency Injection
+
+I deviated from the code provided by the cource when it came to designing my Shopping List service. In the course, Max creates a method called `addIngredients()` which accepts as its single argument an array of `Ingredients`. A new ES6 feature called the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) is used with this new method:
+
+```
+  addIngredients(ingredients: Ingredients[]) {
+    this.ingredients.push(...ingredients);
+  }
+```
+
+Recall that the Array.prototype.push() method accepts one or more arguments that are "pushed" onto the array. In this case, the spread operator effectively takes the suppplied array argument, and spreads each individual element of that array into seperate arguments. The code above effectively becomes the following, where n equals the total number of elements in the provided array argument `ingredients`:
+
+```
+  addIngredients(ingredients: Ingredients[]) {
+    this.ingredients.push(ingredients[0], ingredients[1], ingredients[2], ..., ingredients[n]);
+  }
+```
+
+My original approach, in an attempt to by DRY, did not design a new method, instead using a previously designed method to push ingredients one at a time on to the array. Max warned that while this was an approach that got the job done, the original `addIngredient()` method would emit on every element pushed onto the array. For a small array, performance would not be greatly affected, however, for larger arrays, the number of emitted events could cause a bottleneck in your code. His approach using the spread operator is more effective since all elements are added to the array first, and once complete, a single event is emitted at the end. My code was tring to be clever by using an existing method called `addIngredient()`:
+
+```
+  onToShoppingList() {
+    this.recipe.ingredients.forEach(
+      (ingredient: Ingredient) => {
+        this.shoppingListService.addIngredient(ingredient); // ha! I am able to use an already defined method in my service
+      }
+    );
+  }
+```
+
+But, unfortunately in this case, `addIngredient()` looks like this, which emits after each and every push:
+
+```
+  addIngredient(ingredient: Ingredient) {
+    this.ingredients.push(ingredient);
+    this.ingredientAdded.emit(ingredient); // this line of code could be costly if the array of ingredients was very large
+  }
+```
+
+I ultimately followed the example provided by Max and created a new method that uses the new spread syntax.
+
+Another deviation from the code provided in the course, Max does not directly inject the Shopping List service into his recipe detail. He first injects the Recipe service into the recipe detail, then injects the Shopping List service into his Recipe service. I believe that was largely for demonstration purposes to show how to inject services into services. I directly inject the service I needed to skip the extra step and did not alter my code in the end to reflect the approach provided by Max.
 
 ### 11. Changes Pages with Routing (ak)
 
