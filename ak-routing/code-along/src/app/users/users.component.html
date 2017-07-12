@@ -1,0 +1,19 @@
+<!-- Users -->
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    <ul class="list-group">
+      <span *ngFor="let user of users; let i = index;">
+        <li (click)="onUserClick(i)" class="list-group-item">
+          {{ user.name }}
+        </li>
+      </span>
+    </ul>
+  </div>
+  <div class="col-xs-12 col-md-4">
+    <p *ngIf="selectedUserIndex === undefined; else userDefined"><em>Select a user.</em></p>
+    <ng-template #userDefined>
+      <p>User with ID <strong>{{ users[selectedUserIndex].id }}</strong> loaded.</p>
+      <p>User name is <strong>{{ users[selectedUserIndex].name }}</strong></p>
+    </ng-template>
+  </div>
+</div>
