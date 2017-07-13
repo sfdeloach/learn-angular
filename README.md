@@ -589,6 +589,17 @@ Another deviation from the code provided in the course, Max does not directly in
 
 ### 11. Changes Pages with Routing (ak)
 
+#### How to define your routes in the app.module.ts file
+
+#### How to create links in your template:
+
+You do not use the href attribute to define routes in angular. While this may appear to work, it will reload your app on every click. Instead use the `routerLink` attributes in either style (note that this attribute does not necessarily need to be within a set of `<a></a>` tags:
+
+```
+    <a routerLink="/servers">Servers</a>
+    <a [routerLink]="['/users']">Users</a>
+```
+
 ### 12. Course Project - Routing
 
 ### 13. Understanding Observables (am)
