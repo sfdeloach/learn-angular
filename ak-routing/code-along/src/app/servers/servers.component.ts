@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Server } from '../shared/server.model';
 import { ServersService } from './servers.service';
@@ -15,7 +16,10 @@ export class ServersComponent implements OnInit {
   selectedServerIndex: number;
   serverStatusOptions: string[];
 
-  constructor(private serverService: ServersService) { }
+  constructor(private serverService: ServersService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.servers = this.serverService.getServers();
@@ -38,5 +42,10 @@ export class ServersComponent implements OnInit {
       new Server(this.serverNameInput.nativeElement.value,
          this.serverStatusInput.nativeElement.value)
     );
+  }
+
+  onReloadClick() {
+    // example on how to set a relative path
+    this.router.navigate(['/servers'], {relativeTo: this.activatedRoute});
   }
 }

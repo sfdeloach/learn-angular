@@ -21,4 +21,8 @@ export class UsersService {
     this.selectedUserIndex = index;
     this.newUserSelected.emit(index);
   }
+
+  getSelectedUserIndex(): number {
+    return this.selectedUserIndex;
+  }
 }

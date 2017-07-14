@@ -1,0 +1,8 @@
+<p *ngIf="user.id === undefined; else userDefined"><em>Select a user.</em></p>
+<ng-template #userDefined>
+  <p>User with ID <strong>{{ user.id }}</strong> loaded.</p>
+  <p>User name is <strong>{{ user.name }}</strong></p>
+</ng-template>
+<a routerLink="/users/steven/531" class="btn btn-primary">Load Steven</a>
+<a routerLink="/users/tim/483" class="btn btn-primary">Load Tim</a>
+<a routerLink="/users/dave/555" class="btn btn-primary">Load Dave</a>

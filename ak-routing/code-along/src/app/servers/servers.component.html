@@ -25,5 +25,6 @@
     </form>
     <p><strong>{{ servers[selectedServerIndex].name }}</strong></p>
     <p>Server status is <strong>{{ servers[selectedServerIndex].status }}</strong></p>
+    <button class="btn btn-primary" (click)="onReloadClick()">Reload the page</button>
   </div>
 </div>

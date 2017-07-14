@@ -591,6 +591,27 @@ Another deviation from the code provided in the course, Max does not directly in
 
 #### How to define your routes in the app.module.ts file
 
+```
+import { Routes, RouterModule } from '@angular/router';
+
+...
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'servers', component: ServersComponent },
+  { path: 'users', component: UsersComponent }
+]
+
+...
+
+  imports: [
+    RouterModule.forRoot(appRoutes),
+    BrowserModule
+  ],
+
+...
+```
+
 #### How to create links in your template:
 
 You do not use the href attribute to define routes in angular. While this may appear to work, it will reload your app on every click. Instead use the `routerLink` attributes in either style (note that this attribute does not necessarily need to be within a set of `<a></a>` tags:
@@ -599,6 +620,21 @@ You do not use the href attribute to define routes in angular. While this may ap
     <a routerLink="/servers">Servers</a>
     <a [routerLink]="['/users']">Users</a>
 ```
+
+### How to turn on/off CSS classes with the active route
+
+```
+    <ul class="nav nav-tabs">
+      <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{'exact': true}">
+        <a routerLink="/">Home</a></li>
+      <li role="presentation" routerLinkActive="active">
+        <a routerLink="/servers">Servers</a></li>
+      <li role="presentation" routerLinkActive="active">
+        <a [routerLink]="['/users']">Users</a></li>
+    </ul>
+```
+
+Since HomeComponent is an empty path route in the AppComponent, it is considered a match to any route. You only want the Home link to be active when the user visits that route. Adding an additional binding to the HomeComponent routerLink, `[routerLinkActiveOptions]="{ exact: true }"`, marks the ./ link as active when the user navigates to the home URL and not when navigating to any of the child routes.
 
 ### 12. Course Project - Routing
 

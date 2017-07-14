@@ -10,10 +10,6 @@
     </ul>
   </div>
   <div class="col-xs-12 col-md-4">
-    <p *ngIf="selectedUserIndex === undefined; else userDefined"><em>Select a user.</em></p>
-    <ng-template #userDefined>
-      <p>User with ID <strong>{{ users[selectedUserIndex].id }}</strong> loaded.</p>
-      <p>User name is <strong>{{ users[selectedUserIndex].name }}</strong></p>
-    </ng-template>
+    <app-user></app-user>
   </div>
 </div>

@@ -10,15 +10,11 @@ import { UsersService } from './users.service';
 })
 export class UsersComponent implements OnInit {
   users: User[];
-  selectedUserIndex: number;
 
   constructor(private userService: UsersService) { }
 
   ngOnInit() {
     this.users = this.userService.getUsers();
-    this.userService.newUserSelected.subscribe(
-      (index: number) => { this.selectedUserIndex = index }
-    );
   }
 
   onUserClick(index: number) {

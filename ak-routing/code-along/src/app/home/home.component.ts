@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from '../shared/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,9 @@ import { User } from '../shared/user.model';
 })
 export class HomeComponent {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
+  onClick(route: string) {
+    this.router.navigate([route]);
+  }
 }
