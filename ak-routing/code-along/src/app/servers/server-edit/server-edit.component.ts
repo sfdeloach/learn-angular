@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { Server } from '../../shared/server.model'
 import { ServersService } from '../servers.service';
@@ -14,10 +15,17 @@ export class ServerEditComponent implements OnInit {
   server: Server;
   serverStatusOptions: string[];
 
-  constructor(private serversService: ServersService) { }
+  constructor(
+    private serversService: ServersService,
+    private activatedRoue: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-
+    this.activatedRoue.params.subscribe(
+      (params: Params) => {
+        this.server = this.serversService.getServer(params.id);
+      }
+    );
   }
 
 }

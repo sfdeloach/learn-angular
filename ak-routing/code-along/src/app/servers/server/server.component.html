@@ -1,3 +1,5 @@
 <p style="padding-top: 20px;"><strong>{{ server.name }}</strong></p>
 <p>Server status is <strong>{{ server.status }}</strong></p>
-<button routerLink="/servers" class="btn btn-primary">Back to List</button>
+<button (click)="onEditServer()" class="btn btn-primary">
+  Edit Server
+</button>
