@@ -11,7 +11,6 @@ import { UsersService } from '../users.service';
 })
 export class UserComponent implements OnInit {
   user: User;
-  selectedUserIndex: number;
 
   constructor(
     private usersService: UsersService,
@@ -21,14 +20,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        this.user = new User(params.name, params.id);
-      }
-    );
-
-    this.usersService.newUserSelected.subscribe(
-      index => {
-        this.selectedUserIndex = index;
-        this.user = this.usersService.getUsers()[this.selectedUserIndex];
+        this.user = this.usersService.getUserById(params.id);
       }
     );
   }

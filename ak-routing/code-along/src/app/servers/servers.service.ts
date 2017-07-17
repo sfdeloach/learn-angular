@@ -4,15 +4,13 @@ import { Server } from '../shared/server.model';
 
 @Injectable()
 export class ServersService {
-  public newServerSelected: EventEmitter<number> = new EventEmitter<number>();
-  public refreshServerList: EventEmitter<void> = new EventEmitter<void>();
   private servers: Server[] = [
-    new Server("Productionserver", "Online"),
-    new Server("Testserver", "Offline"),
-    new Server("Devserver", "Unknown"),
+    new Server(0, "Productionserver", "Online"),
+    new Server(1, "Testserver", "Offline"),
+    new Server(2, "Devserver", "Unknown"),
   ];
+
   private serverStatusOptions: string[] = ["Online", "Offline", "Unknown"];
-  private selectedServerIndex: number;
 
   constructor() { }
 
@@ -20,17 +18,14 @@ export class ServersService {
     return this.servers.slice();
   }
 
-  setSelectedServerIndex(index: number) {
-    this.selectedServerIndex = index;
-    this.newServerSelected.emit(index);
+  getServer(id: string): Server {
+    return this.servers.find(
+      (element: Server) => { return element.id === parseInt(id); }
+    );
   }
 
   getServerStatusOptions(): string[] {
     return this.serverStatusOptions;
   }
 
-  updateServer(index: number, server: Server) {
-    this.servers[index] = server;
-    this.refreshServerList.emit();
-  }
 }

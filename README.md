@@ -591,6 +591,8 @@ Another deviation from the code provided in the course, Max does not directly in
 
 #### How to define your routes in the app.module.ts file
 
+Routes are defined by importing the following classes, defining routes in an object, and including an additional element in the imports array:
+
 ```
 import { Routes, RouterModule } from '@angular/router';
 
@@ -614,11 +616,11 @@ const appRoutes: Routes = [
 
 #### How to create links in your template:
 
-You do not use the href attribute to define routes in angular. While this may appear to work, it will reload your app on every click. Instead use the `routerLink` attributes in either style (note that this attribute does not necessarily need to be within a set of `<a></a>` tags:
+You do not use the href attribute to define routes in angular. While this may appear to work, it will reload your app on every click. Instead use the `routerLink` attributes in either style (note that this attribute does not necessarily need to be within a set of `<a></a>` tags, however, consideration may need to be given how your CSS framework (like Bootstrap) may use classes to control an active component (more on this shortly):
 
 ```
-    <a routerLink="/servers">Servers</a>
-    <a [routerLink]="['/users']">Users</a>
+    <a routerLink="/servers">Servers</a>    // shortcut way to define routerLink
+    <a [routerLink]="['/users']">Users</a>  // more verbose, but is the way to go for dynamically defined routes
 ```
 
 ### How to turn on/off CSS classes with the active route
@@ -635,6 +637,118 @@ You do not use the href attribute to define routes in angular. While this may ap
 ```
 
 Since HomeComponent is an empty path route in the AppComponent, it is considered a match to any route. You only want the Home link to be active when the user visits that route. Adding an additional binding to the HomeComponent routerLink, `[routerLinkActiveOptions]="{ exact: true }"`, marks the ./ link as active when the user navigates to the home URL and not when navigating to any of the child routes.
+
+### Injecting Router to programattically control routes
+
+```
+  constructor(private router: Router) { }
+
+  someFn() {
+    this.router.navigate(['/servers']);
+  }
+```
+
+### Intro to ActivatedRoute 
+
+```
+  constructor(private router: Router, private route: ActivatedRoute) { }
+
+  someFn() {
+    this.router.navigate(['/servers'], { relativeTo: this.route });
+  }
+```
+
+### Route Parameters, Query Parameters, and Fragments
+
+Define route parameters in the AppModule by prefixing the variable with `:`:
+
+```
+  const appRoutes: Routes = [
+    { path: 'users/:name/:id', component: UserComponent }
+  ]
+```
+
+Fetch the parameters (both route and query) and fragments in your business logic by using the ActivatedRoute object with either a snapshot (will not update) or params observable (will update template when data changes):
+
+```
+  constructor(private router: Router, private route: ActivatedRoute) { }
+
+  someFn() {
+    // if view is same and params changes, view will not auto update
+    console.log(this.route.snapshot.params);
+    console.log(this.route.snapshot.queryParams);
+    console.log(this.route.snapshot.fragment);
+    
+    // setup a subscription to update your view, this is a safer approach
+    this.route.params.subscribe(
+      (params: Params) => {
+        console.log(params);
+      }
+    );
+
+    this.route.queryParams.subscribe(
+      (queryParams: QueryParams) => {
+        console.log(queryParams);
+      }
+    );
+
+    this.route.fragment.subscribe(
+      (fragment: Fragment) => {
+        console.log(fragment);
+      }
+    );
+  }
+```
+
+Note that Angular will handle this unsubscription for you, but in the future, when dealing with your own Observables, it will be necessary to unsubscribe your observables by using the ngOnDestroy() lifecycle hook. You will need to set up a property of type `Subscription` (from `rxjs/Subscription`), assigning the subscription during ngOnInit() and unsubscribing during ngOnDestroy().
+
+Query parameters and fragments are created in the view as follows:
+
+```
+   <li
+     [routerLink]="['/servers', 'someID', 'edit']"
+     [queryParams]="{allowEdit: true}"
+     [fragment]="'loading'"
+     class="list-group-item">
+     {{ server.name }}
+   </li>
+
+   <!--
+     will produce a url: http://localhost:4200/servers/someID/edit?allowEdit=true#loading
+   -->
+```
+
+and created programatically like this (router is dependency injected as a Router object from @angular/router):
+
+```
+  onLoadServer(index: number) {
+    this.router.navigate(['/servers', index, 'edit'], { // index is not hard coded
+      queryParams:
+        { allowEdit: true },
+      fragment: 'loading'
+    });
+  }
+```
+
+### Child Routes
+
+Child routes are defined in an array next to their parents in AppModule. Note that the child routes do not include their parent's root path:
+
+```
+  { path: 'servers', component: ServersComponent,
+    children: [
+    { path: ':id', component: ServerComponent },
+    { path: ':id/edit', component: ServerEditComponent }
+  ]},
+```
+
+The parent routes include another `<router-outlet>` tag in their view which will be displayed when the child route is hit in the URL:
+
+```
+  <div class="col-xs-12 col-md-4">
+    <router-outlet></router-outlet>
+  </div>
+```
 
 ### 12. Course Project - Routing
 

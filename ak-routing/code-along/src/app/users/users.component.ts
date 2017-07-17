@@ -17,7 +17,4 @@ export class UsersComponent implements OnInit {
     this.users = this.userService.getUsers();
   }
 
-  onUserClick(index: number) {
-    this.userService.setSelectedUserByIndex(index);
-  }
 }

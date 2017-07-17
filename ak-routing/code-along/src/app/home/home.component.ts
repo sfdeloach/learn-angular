@@ -9,9 +9,19 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router
+  ) { }
 
   onClick(route: string) {
     this.router.navigate([route]);
+  }
+
+  onLoadServer(index: number) {
+    this.router.navigate(['/servers', index, 'edit'], {
+      queryParams:
+        { allowEdit: true },
+      fragment: 'loading'
+    });
   }
 }

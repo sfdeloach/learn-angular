@@ -1,0 +1,13 @@
+<form>
+  <div class="form-group">
+    <label>Server Name</label>
+    <input type="text" class="form-control" [value]="server.name" #serverName>
+  </div>
+  <div class="form-group">
+    <label>Server Status</label>
+    <select class="form-control" [value]="server.status" #serverStatus>
+      <option *ngFor="let option of serverStatusOptions">{{ option }}</option>
+    </select>
+  </div>
+  <button (click)="onServerUpdate()" type="button" class="btn btn-primary">Update Server</button>
+</form>

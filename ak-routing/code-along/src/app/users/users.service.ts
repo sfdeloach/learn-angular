@@ -17,12 +17,9 @@ export class UsersService {
     return this.users.slice();
   }
 
-  setSelectedUserByIndex(index: number) {
-    this.selectedUserIndex = index;
-    this.newUserSelected.emit(index);
-  }
-
-  getSelectedUserIndex(): number {
-    return this.selectedUserIndex;
+  getUserById(id: string): User {
+    return this.users.find(
+      (element: User) => { return element.id === id; }
+    );
   }
 }
