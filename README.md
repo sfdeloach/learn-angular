@@ -718,15 +718,21 @@ Query parameters and fragments are created in the view as follows:
    -->
 ```
 
-and created programatically like this (router is dependency injected as a Router object from @angular/router):
+and created programatically like this (router is dependency injected as a `Router` object from @angular/router):
 
 ```
   onLoadServer(index: number) {
+    // This is one way to also pass query parameters with your URL, but you have to code it out
     this.router.navigate(['/servers', index, 'edit'], { // index is not hard coded
       queryParams:
         { allowEdit: true },
       fragment: 'loading'
     });
+
+    // This other way will just pass along the query parameter object that it received
+    this.router.navigate(['/servers', index, 'edit'], {
+      queryParamsHandling: 'preserve' // another option includes 'merge' which allows you to preserve passed query
+    });                               // parameters and add to them on the next navigation
   }
 ```
 
@@ -749,6 +755,285 @@ The parent routes include another `<router-outlet>` tag in their view which will
     <router-outlet></router-outlet>
   </div>
 ```
+
+### Router Configuration Outsourcing
+
+Routes may be outsourced into a seperate module in order to keep the clutter out of your AppModule. Use the CLI to create a new module, commonly called `app-routing.module.ts`. Routes are defined in a const object as before with the AppRoutingModule importing a RouterModule, modifying if by using the forRoot() method, then exported to the AppModule.
+
+### What are Guards?
+
+A guard is code that is run either before or after a navigation route. Use cases include a guard to determine if a user is allowed to navigate to a specific route, or if a user is allowed to navigate away from a route. A guard can also fetch data before navigating to a route in order for a component to have access to it. The following classes are how guards are instantiated:
+
+ * CanActivate - checks route access
+ * CanActivateChild - checks child route access
+ * CanDeactivate - ask permission to discard unsaved changes
+ * Resolve - pre-fetch route data (passing dynamic data)
+
+### canActivate vs canActivateChild
+
+While it may be possible to achieve the same effects of not allowing a user to view a component through logic placed in the ngOnInit() method, it would become a tedious and bug-prone approach if there were many routes under a common parent. The canActivate() method can be placed on a component which will control access to itself and all its children. Similiarly, the canActivateChild() method can be placed on a parent component, allowing open access to itself, but controlling access to all of its children.
+
+`canActivate` is a property added to your route definintion:
+
+```
+  { path: 'servers',
+    canActivate: [AuthGuardService],
+    component: ServersComponent,
+    children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: ServerEditComponent }
+    ]},
+```
+
+In this example `AuthGuardService` is a user-defined service class that implements `CanActivate` from `@angular/router`. Because it implements `CanActivate`, it must define a `canActivate()` method:
+
+```
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+    : boolean | Promise<boolean> | Observable<boolean> {
+      return this.authService.isAuthenticated().then(
+        (isAuthenticated: boolean) => {
+          if (isAuthenticated) {
+            console.log("user is authenticated");
+            return true;
+          } else {
+            console.log("user is NOT authenticated");
+            this.router.navigate(['/']);
+            return false;
+          }
+        }
+      );
+```
+
+`canActivateChild` is a property added to your route definintion, and the guard service assigned to this property will only be applied to the children:
+
+```
+  { path: 'servers',
+    canActivateChild: [AuthGuardService],
+    component: ServersComponent,
+    children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: ServerEditComponent }
+    ]},
+```
+
+The guard service must implement the `CanActivateChild` interface which will require a method of similar name to be defined. In this example, we can just reuse our code used to define the `canActivate()` method as follows:
+
+```
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+    : Observable<boolean> | Promise<boolean> | boolean {
+      return this.canActivate(route, state);
+    }
+```
+
+### canDeactivate
+
+As discussed earlier, the canDeactivate() method allows code to be run before a route is navigated away from, the most common use case being a warning to the user that they may not have saved data before their exit. There is a bit of code that must be first setup in your service, but once completed, it does allow the code in your component to be somewhat simplified. In this example, we not only define a CanDeactivate service, but also an interface that is used to build our class:
+
+```
+export interface CanComponentDeactivate {
+  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+}
+
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+  canDeactivate(
+    component: CanComponentDeactivate,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot):
+    Observable<boolean> | Promise<boolean> | boolean {
+      return component.canDeactivate();
+  }
+}
+```
+
+Now, in our component, we add logic that will be executed before we depart from it:
+
+```
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.allowEdit) {
+      return true;
+    }
+    else if (!this.changesSaved) {
+      return confirm('Do you want to discard the changes?');
+    } else {
+      return true;
+    }
+  }
+```
+
+Of course, the property `canDeactivate` must be set in the routes definition:
+
+```
+  { path: 'servers',
+    component: ServersComponent,
+    children: [
+      { path: ':id', 
+        component: ServerComponent },
+      { path: ':id/edit',
+        component: ServerEditComponent,
+        canDeactivate: [CanDeactivateGuard] } // canDeactivate set here!
+    ]},
+```
+
+### Passing static data to a route
+
+Static data is easily passed to a route by adding the `data` property in the routes definition:
+
+```
+  { path: 'error-page', component: ErrorPageComponent, data: 
+    {
+      error: {
+        number: 404,
+        message: 'Page not found.'
+      }
+    }
+  }
+```
+
+### Resolving dynamic data with the resolve guard
+
+A resolver is a service that implements the Resolve<T> interface, where <T> represents the class that your service will ultimately resolve to. Typical use case includes having to fetch data from another server in order to load your page. This is an example of a resolver that fetches data from a another service defined in our app. It basically is code which runs synchronously, and is of little value here other than for demonstration purposes. The real power for using resolvers is in fetching data asynchronously. Note the injector decorator is used here since this service is depending on another service in our app.
+
+```
+@Injectable()
+export class ServerResolverService implements Resolve<Server> {
+
+  constructor(private serversService: ServersService) { }
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Server> | Promise<Server> | Server {
+    return this.serversService.getServerByID(route.params.id);
+  }
+}
+```
+
+The resolver service must be listed in the `providers` array in the AppModule and is listed as an object in the Routes array under the `resolve` property. The name `server` here will be the property name you will need to refer to in your component later:
+
+```
+  { path: 'servers',
+    component: ServersComponent,
+    children: [
+      { path: ':id',
+        component: ServerComponent,
+        resolve: {server: ServerResolverService} }, // 'server' could be called anything, but it will be refered to under the same name in your component
+      { path: ':id/edit',
+        component: ServerEditComponent }
+    ]}
+```
+
+Now in the component, under the ngOnInit method, the resolver can be used to set a property. Again, the real takeaway here is this technique is paving the way to set component properties from an outside server:
+
+```
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(
+      (data: Data) => { this.server = data.server; }
+    );
+  }
+```
+
+### Location strategies
+
+Servers hosting Angular apps should automatically provide the index.html file on requests it cannot find. The Angular app will then take over, parse the URL, and display your routes as configured. Some older servers, however, do not default to this behavior, and upon reaching a condition where it cannot find the requested URL, default to a 404 'Not Found' page, thus never giving your app the chance to parse the URL. In such cases, the `useHash` property must be set to true:
+
+```
+@NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(appRoutes, {useHash: true}), // rare case, used for servers which do not default to index.html or older browsers
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+```
+
+### Lesson learned!
+
+So when defining my routes in my app, I notice that I create a `const` with type `Routes`. Furthermore, I proceed to define an array of objects, all of which contain a `path` and `component` property. Some objects in this array contained addtional properties such as `canActivateChild` and `children`. I began to wonder how many possible properties are available and if I could possibly dig around in the Angular source code published on GitHub. See this example of some how routes have certain properties:
+
+```
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'servers',
+    //canActivate: [AuthGuardService],
+    canActivateChild: [AuthGuardService],
+    component: ServersComponent,
+    children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit',
+        component: ServerEditComponent,
+        canDeactivate: [CanDeactivateGuard] }
+    ]},
+  { path: 'users', component: UsersComponent,
+    children: [
+      { path: ':id/:name', component: UserComponent }
+    ]},
+  // { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: 'error-page',
+    component: ErrorPageComponent,
+    data: {
+      error: {
+        number: 404,
+        message: 'Page not found.'
+      }
+    }
+  },
+  { path: '**', redirectTo: 'error-page' }
+]
+```
+
+I started first by observing the class `Routes` was imported with this line of code at the top of the file:
+
+```
+  import { Routes, RouterModule } from '@angular/router'
+```
+
+The `@angular/router` signifies that `Routes` can be found in the angular package called router. On github, I observed the following path:
+
+
+```
+  angular/packages/router/src
+```
+
+There is an `index.ts` file that shows that `Route` and `Routes` is exported from `'./config'`. This is the file I was looking for! In it (and it is long) is the actual source code that provided the class definitions (hint: use word search). As suspected, `Routes` was simply defined as a type consisting of an array of `Route` objects:
+
+```
+  export type Routes = Route[];
+```
+
+And the `Route` class was defined as follows, which contained all of the properties that I was familar with thus far, plus a great deal more that I have no idea as to what they do:
+
+```
+/**
+ * See {@link Routes} for more details.
+ * @stable
+ */
+export interface Route {
+  path?: string;
+  pathMatch?: string;
+  matcher?: UrlMatcher;
+  component?: Type<any>;
+  redirectTo?: string;
+  outlet?: string;
+  canActivate?: any[];
+  canActivateChild?: any[];
+  canDeactivate?: any[];
+  canLoad?: any[];
+  data?: Data;
+  resolve?: ResolveData;
+  children?: Routes;
+  loadChildren?: LoadChildren;
+  runGuardsAndResolvers?: RunGuardsAndResolvers;
+  /**
+   * Filled for routes with `loadChildren` once the module has been loaded
+   * @internal
+   */
+  _loadedConfig?: LoadedRouterConfig;
+}
+```
+
+I believe the code at the top of this snippet, `See {@link Routes} for more details`, refers to the documentation that is located above the `export type Routes = Route[];` that starts with the line `@whatItDoes Represents router configuration`. Here there is extensive documentation on how `Routes` are configured and used in your code.
+
+As another exercise in exploration, I looked for the source code for `Component` located in `@angular/core`. I was able to eventually find it and extensive documentation but the path locations were a little different. I found `Component` under a metadata directives folder, which just provided more support to the idea that components are a type of directives. In fact, `Component` is an interface that extends `Directive`!
 
 ### 12. Course Project - Routing
 

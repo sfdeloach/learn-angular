@@ -5,6 +5,8 @@
       <span *ngFor="let server of servers;">
         <li
           [routerLink]="['/servers', server.id]"
+          [queryParams]="{allowEdit: server.id === 2 ? '1' : '0'}"
+          fragment="loading"
           class="list-group-item">
           {{ server.name }}
         </li>

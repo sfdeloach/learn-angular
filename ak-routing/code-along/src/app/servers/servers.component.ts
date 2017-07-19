@@ -16,6 +16,11 @@ export class ServersComponent implements OnInit {
 
   ngOnInit() {
     this.servers = this.serversService.getServers();
+    this.serversService.serversRefresh.subscribe(
+      () => {
+        this.servers = this.serversService.getServers();
+      }
+    );
   }
 
 }

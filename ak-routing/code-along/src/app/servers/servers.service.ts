@@ -4,6 +4,7 @@ import { Server } from '../shared/server.model';
 
 @Injectable()
 export class ServersService {
+  serversRefresh: EventEmitter<void> = new EventEmitter<void>();
   private servers: Server[] = [
     new Server(0, "Productionserver", "Online"),
     new Server(1, "Testserver", "Offline"),
@@ -18,7 +19,7 @@ export class ServersService {
     return this.servers.slice();
   }
 
-  getServer(id: string): Server {
+  getServerByID(id: string): Server {
     return this.servers.find(
       (element: Server) => { return element.id === parseInt(id); }
     );
@@ -28,4 +29,8 @@ export class ServersService {
     return this.serverStatusOptions;
   }
 
+  updateServer(server: Server) {
+    this.servers[server.id] = server;
+    this.serversRefresh.emit();
+  }
 }
