@@ -825,6 +825,7 @@ In this example `AuthGuardService` is a user-defined service class that implemen
           }
         }
       );
+    }
 ```
 
 `canActivateChild` is a property added to your route definintion, and the guard service assigned to this property will only be applied to the children:
