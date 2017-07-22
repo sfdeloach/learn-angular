@@ -1060,6 +1060,10 @@ As another exercise in exploration, I looked for the source code for `Component`
 
 ### 12. Course Project - Routing
 
+Once again, I have forgotten to use the index property when displaying ngFor loops! When I went about designing how to retrieve recipes from my routes, for a moment I thought about redesigning the recipe model to include an id property, since certainly when we start to retrieve our data from a http request, we will be identifying unique records by id. I did not feel this was right, so I designed my service to return a recipe based on a name. Once I viewed Max's solution, I saw that once again, I forgot about the index value that is automatically created in ngFor loops and how this number could be property binded to my business logic. I decided to leave my solution as is and did not alter it to match Max's solution.
+
+An interesting approach in Max's solution is how he is using one component, the `RecipeEditComponent`, to accomplish both new and edit recipe views. There is one boolean property used in the business logic that will determine its behavior. I had originally created two seperate components, but refactored to follow his example since it appears to be DRY!
+
 ### 13. Understanding Observables (am)
 
 ### 14. Course Project - Observables

@@ -7,10 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   visibleComponent: string = "Recipes";
-
-  onHeaderClick(evt: string) {
-    if (["Recipe Book", "Recipes", "Shopping List"].includes(evt)) {
-      this.visibleComponent = evt;
-    }
-  }
 }

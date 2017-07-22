@@ -2,7 +2,6 @@ p {
   padding-top: 10px;
 }
 
-li span {
-  padding: 20px;
+a {
   cursor: pointer;
 }
