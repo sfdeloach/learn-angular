@@ -1,0 +1,7 @@
+a {
+  cursor: pointer;
+}
+
+.list-group-item.active {
+  background-color: #3c5f7d;
+}

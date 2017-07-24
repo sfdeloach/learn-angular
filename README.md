@@ -222,7 +222,7 @@ export class ServerElementComponent {
 
 ### 6. Course Project - Components & Databinding (af)
 
-### 7. Directives Deep Directives (ag)
+### 7. Directives Deep Dive (ag)
 - There are three types of Directives:
  - **Components** - Directives with a view
  - **Attribute Directives** - Looks like a normal HTML attribute (possibly with databinding or event binding) and only affects/changes the element they are added to
@@ -616,7 +616,7 @@ const appRoutes: Routes = [
 
 #### How to create links in your template:
 
-You do not use the href attribute to define routes in angular. While this may appear to work, it will reload your app on every click. Instead use the `routerLink` attributes in either style (note that this attribute does not necessarily need to be within a set of `<a></a>` tags, however, consideration may need to be given how your CSS framework (like Bootstrap) may use classes to control an active component (more on this shortly):
+You do not use the href attribute to define routes in angular. While this may appear to work, it will reload your app on every click. Instead use the `routerLink` attributes in either style (note that this attribute does not necessarily need to be within a set of `<a></a>` tags, however, consideration may need to be given how your CSS framework (like Bootstrap) may use classes to control an active component (more on how to turn CSS classes on and off will appear shortly):
 
 ```
     <a routerLink="/servers">Servers</a>    // shortcut way to define routerLink
@@ -636,9 +636,9 @@ You do not use the href attribute to define routes in angular. While this may ap
     </ul>
 ```
 
-Since HomeComponent is an empty path route in the AppComponent, it is considered a match to any route. You only want the Home link to be active when the user visits that route. Adding an additional binding to the HomeComponent routerLink, `[routerLinkActiveOptions]="{ exact: true }"`, marks the ./ link as active when the user navigates to the home URL and not when navigating to any of the child routes.
+Since HomeComponent is an empty path route in the AppComponent, it is considered a match to any route. You only want the Home link to be active when the user visits that route. Adding an additional binding to the HomeComponent routerLink, `[routerLinkActiveOptions]="{ exact: true }"`, marks the ./ link as active when the user navigates to the home URL and not when navigating to any of the child routes. In this example, "active" is the name of the Bootstrap CSS class that controls the appearance of a tab being selected.
 
-### Injecting Router to programattically control routes
+### Dependency Injecting Router to programmatically control routes
 
 ```
   constructor(private router: Router) { }
@@ -657,6 +657,7 @@ Since HomeComponent is an empty path route in the AppComponent, it is considered
     this.router.navigate(['/servers'], { relativeTo: this.route });
   }
 ```
+The ActivatedRoute holds key information on the current route your app is on. See the [docs](https://angular.io/api/router/ActivatedRoute) for more information.
 
 ### Route Parameters, Query Parameters, and Fragments
 
@@ -736,6 +737,28 @@ and created programatically like this (router is dependency injected as a `Route
   }
 ```
 
+### ActivatedRoute vs ActivatedRouteSnapshot
+
+Per official documentation, the interface `ActivatedRoute` includes the following properties (list not all-inclusive):
+
+ * snapshot: ActivatedRouteSnapshot
+ * url: Observable<UrlSegment[]>
+ * params: Observable<Params>
+ * queryParams: Observable<Params>
+ * fragment: Observable<string>
+ * data: Observable<Data>
+ 
+Contrast this to the `ActivatedRouteSnapshot`, which is itself a class already contained as a property in `ActivatedRoute`:
+
+ * url: UrlSegment[]
+ * params: Params
+ * queryParams: Params
+ * fragment: string
+ * data: Data
+ * outlet: string
+
+The snapshot does not contain observables, that is why subscriptions can only be made to the properties in `ActivatedRoute`
+
 ### Child Routes
 
 Child routes are defined in an array next to their parents in AppModule. Note that the child routes do not include their parent's root path:
@@ -748,7 +771,7 @@ Child routes are defined in an array next to their parents in AppModule. Note th
   ]},
 ```
 
-The parent routes include another `<router-outlet>` tag in their view which will be displayed when the child route is hit in the URL:
+The parent routes include another `<router-outlet>` tag in their view which will be displayed when the child route is hit in the URL. In this example, the outlet is in a parent component under the main AppComponent:
 
 ```
   <div class="col-xs-12 col-md-4">
@@ -802,6 +825,7 @@ In this example `AuthGuardService` is a user-defined service class that implemen
           }
         }
       );
+    }
 ```
 
 `canActivateChild` is a property added to your route definintion, and the guard service assigned to this property will only be applied to the children:
@@ -989,7 +1013,6 @@ I started first by observing the class `Routes` was imported with this line of c
 
 The `@angular/router` signifies that `Routes` can be found in the angular package called router. On github, I observed the following path:
 
-
 ```
   angular/packages/router/src
 ```
@@ -1031,11 +1054,15 @@ export interface Route {
 }
 ```
 
-I believe the code at the top of this snippet, `See {@link Routes} for more details`, refers to the documentation that is located above the `export type Routes = Route[];` that starts with the line `@whatItDoes Represents router configuration`. Here there is extensive documentation on how `Routes` are configured and used in your code.
+I learned that the `?` at the end of each property name defined that the property was optional. I believe the code at the top of this snippet, `See {@link Routes} for more details`, refers to the documentation that is located above the `export type Routes = Route[];` that starts with the line `@whatItDoes Represents router configuration`. Here there is extensive documentation on how `Routes` are configured and used in your code.
 
 As another exercise in exploration, I looked for the source code for `Component` located in `@angular/core`. I was able to eventually find it and extensive documentation but the path locations were a little different. I found `Component` under a metadata directives folder, which just provided more support to the idea that components are a type of directives. In fact, `Component` is an interface that extends `Directive`!
 
 ### 12. Course Project - Routing
+
+Once again, I have forgotten to use the index property when displaying ngFor loops! When I went about designing how to retrieve recipes from my routes, for a moment I thought about redesigning the recipe model to include an id property, since certainly when we start to retrieve our data from a http request, we will be identifying unique records by id. I did not feel this was right, so I designed my service to return a recipe based on a name. Once I viewed Max's solution, I saw that once again, I forgot about the index value that is automatically created in ngFor loops and how this number could be property binded to my business logic. I decided to leave my solution as is and did not alter it to match Max's solution.
+
+An interesting approach in Max's solution is how he is using one component, the `RecipeEditComponent`, to accomplish both new and edit recipe views. There is one boolean property used in the business logic that will determine its behavior. I had originally created two seperate components, but refactored to follow his example since it appears to be DRY!
 
 ### 13. Understanding Observables (am)
 

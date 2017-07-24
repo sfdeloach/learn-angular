@@ -10,7 +10,4 @@ export class HeaderComponent {
 
   constructor() { }
 
-  navClick(evt) {
-    this.onHeaderClick.emit(evt.target.text);
-  }
 }

@@ -14,4 +14,12 @@ export class RecipeService {
     // returns a copy, not a reference
     return this.recipes.slice();
   }
+
+  getRecipeByName(name: string): Recipe {
+    return this.recipes.find(
+      (recipe: Recipe): boolean => {
+        return recipe.name === name;
+      }
+    );
+  }
 }
