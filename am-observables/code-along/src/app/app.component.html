@@ -20,9 +20,18 @@
   <div class="row">
     <div class="col-xs-12">
       <ul class="nav nav-pills">
-        <li role="presentation" routerLinkActive="active" routerLink="/home"><a>Home</a></li>
-        <li role="presentation" routerLinkActive="active" [routerLink]="['user', '1']"><a>User 1</a></li>
-        <li role="presentation" routerLinkActive="active" [routerLink]="['user', '2']"><a>User 2</a></li>
+        <li role="presentation"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/">
+          <a>Home</a>
+        </li>
+        <li role="presentation" routerLinkActive="active" [routerLink]="['user', '1']">
+          <a>User 1 {{ isUser1Activated ? "(active)" : "" }}</a>
+        </li>
+        <li role="presentation" routerLinkActive="active" [routerLink]="['user', '2']">
+          <a>User 2 {{ isUser2Activated ? "(active)" : "" }}</a>
+        </li>
       </ul>
       <hr>
       <router-outlet></router-outlet>

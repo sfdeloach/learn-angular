@@ -6,10 +6,9 @@ import { HomeComponent } from '../home/home.component';
 import { UserComponent } from '../user/user.component';
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'user/:id', component: UserComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

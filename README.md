@@ -1066,6 +1066,116 @@ An interesting approach in Max's solution is how he is using one component, the 
 
 ### 13. Understanding Observables (am)
 
+An **observable** is something the Angular team borrowed from the team at [ReactiveX](http://reactivex.io/). ReactiveX is not just limited to TypeScript or JavaScript, their observable streams are available for many programming languages. Observables are a preferred way of handling asynchronous programming, as opposed to callback function hell or promises. The platform used in Angular is called **RxJS**. The webpage dedicated to RxJS [is found here](http://reactivex.io/rxjs/).
+
+According to their website on why you should use observables:
+
+> The ReactiveX Observable model allows you to treat streams of asynchronous events with the same sort of simple, composable operations that you use for collections of data items like arrays. It frees you from tangled webs of callbacks, and thereby makes your code more readable and less prone to bugs.
+
+#### Simple Observable
+
+```
+  ngOnInit() {
+    // Simple creation of an Observable
+    const myNumbers = Observable.interval(1000);
+
+    // Subscriptions have three arguments:
+    this.myNumberSubscription = myNumbers.subscribe(
+      // A function that handles data when emitted by an event
+      (num: number) => {
+        console.log(num);
+      },
+      // A function that handles an error if it one occurs
+      err => {
+
+      },
+      // A function to run when the Observable is complete, if it completes
+      () => {
+
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    // Subscription must be canceled, otherwise it will continue after component is destroyed
+    this.myNumberSubscription.unsubscribe();
+  }
+```
+
+#### My first Observable
+
+```
+  ngOnInit() {
+    const myObservable: Observable<string> = Observable.create(
+      (observer: Observer<string>) => {
+        // a list of asynch operations...
+        setTimeout(() => {
+          observer.next("#1 Hello from myObservable!");
+        }, 2000);
+        setTimeout(() => {
+          observer.next("#2 Hello from myObservable!");
+        }, 4000);
+        setTimeout(() => {
+          observer.error("Failure!");
+          // observer.complete();
+        }, 5000);
+        setTimeout(() => {
+          observer.next("This message will NOT be seen!");
+        }, 6000);
+      }
+    );
+
+    this.mySubscription = myObservable.subscribe(
+      (data: string) => {console.log(data);},
+      (err: string) => {console.log(err);},
+      () => {console.log("All done!");}
+    );
+  }
+  
+  // remember to unsubscribe!
+```
+
+#### Subject - Observable and Observer in one!
+
+A RxJS Subject is both Observable and Observer and uses similar methods. Max advises near the end of lecture 163 that is using a Subject is preferred over the built-in EventEmitter object for cross component communication. In this lesson we setup a user service with a single property that tracks when a user is activated:
+
+```
+  userActivated: Subject<number> = new Subject();
+```
+
+In this example, the Subject is setup to emit a number. A button in a child component controls the activation of the user with the following method located in the business logic side:
+
+```
+  onActivate() {
+    this.userService.userActivated.next(this.id);
+  }
+```
+
+On a button press, the next() method essentially emits the data application wide. In order to receive this emitted data, a subscription is setup on initialization in another component as follows:
+
+```
+  ngOnInit() {
+    this.userService.userActivated.subscribe(
+      (id: number) => {
+        if (id === 1) this.isUser1Activated = !this.isUser1Activated;
+        if (id === 2) this.isUser2Activated = !this.isUser2Activated;
+      }
+    );
+  }
+```
+
+...where the function receives as an argument the data passed as an argument in the preceeding next() method.
+
+#### Operators worth taking a look at it
+
+Operators can be used on any Observable or Subject, [click here](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html) and scroll down to the public methods (not the public static methods) to see a complete list. One notable operator is `map`:
+
+```
+const myNumbers = Observable.interval(1000).map((data: number) => { return data * 2 });
+```
+
+Operators will return new instances of Observables, so these operators can be chained together.
+
 ### 14. Course Project - Observables
 
 ### 15. Handling Forms in Angular Apps (ao)
