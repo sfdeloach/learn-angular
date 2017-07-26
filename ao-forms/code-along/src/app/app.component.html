@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            ngModel
+            name="username"
+            required>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default" type="button">Suggest an Username</button>
+        </div>
+        <div class="form-group">
+          <label>Mail</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            ngModel
+            name="email"
+            required
+            email
+            #emailRefVar="ngModel">
+            <span
+              *ngIf="emailRefVar.invalid && emailRefVar.touched"
+              class="help-message">Please enter a vaild email address.
+            </span>
+        </div>
+        <div class="form-group">
+          <label>Number</label>
+          <input
+            type="number"
+            id="number"
+            class="form-control"
+            ngModel
+            name="number"
+            required>
+        </div>
+        <div class="form-group">
+          <label>Secret Questions</label>
+          <select
+            id="secret"
+            class="form-control"
+            ngModel
+            name="secret">
+            <option value="pet">Your first pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="form.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1182,6 +1182,115 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
 
 ### 15. Handling Forms in Angular Apps (ao)
 
+#### Two approaches to handling forms in Angular:
+
+**Template-Driven**
+
+ - Faster to setup
+ - Form is only designed in the html view
+ - Angular infers data through your html setup
+ 
+**Reactive Approach**
+
+ - More complex to setup
+ - Form is designed in business logic end
+ - Data is manually setup
+ 
+## Template-Driven
+
+ - import FormsModule (@angular/forms) into your NgModule imports array (hint: insert next to BrowserModule)
+ - when you import FormsModule, Angular will auto detect any forms in your html by looking for the `<form>` selector
+ - it will NOT, however, detect inputs, these must be manually selected
+ - `ngModel` without parens or brackets is placed inside the selector to identify a control for your form, a name also must be provided
+ 
+```
+  <input type="text" id="username" class="form-control" ngModel name="username">
+```
+
+ - In order to override default html behavior, the `(ngSubmit)` attribute must be placed inside the form selector:
+ 
+```
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+```
+ - The corresponding method can be placed in your business logic to gain access to all your named inputs:
+ 
+```
+  onSubmit(form: NgForm) {
+    console.log(form);
+  }
+```
+
+ - As an alternative to gain access to your form before submission, the `@ViewChild` decorator can be used. This will be useful for form validation. Note that there are no arguments provided to `onSubmit()`:
+ 
+HTML View:
+```
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+```
+
+Business Logic:
+```
+  @ViewChild('form') signupForm: NgForm;
+
+  onSubmit() {
+    console.log(this.signupForm);
+  }
+```
+
+ - Form validation can only be placed in the html for template driven validation. Use `required` and `email` inside the selectors. Angular will add/remove CSS classes dynamically such as ng-dirty and ng-valid. Refer to the Official Angular Docs on [Validators](https://angular.io/api/forms/Validators) and [Directives](https://angular.io/api?type=directive) for more info.
+ - There are a number of useful controls available to you in form validation when you define a [Template reference variable](https://angular.io/guide/template-syntax#ref-vars). Recall that a template reference variable will be default will return a reference to a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components). It can also be designed to return an Angular component or directive. For example, contrast the following code:
+ 
+```
+  <!-- 'form' will return a reference to a ngForm Directive -->
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+  
+  <!-- 'form' will return a reference to a web component -->
+  <form (ngSubmit)="onSubmit()" #form>
+```
+
+ - Building on the above referenced code, a simple way to disable a submit button can be implemented because of the properties made available to us on the ngForm directive:
+ 
+```
+  <!-- 'invalid' is a property available on 'form' -->
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Submit</button>
+  <!-- Alternatively -->
+  <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+```
+
+ - Regular CSS classes can be used to add features to your form. In this example, the CSS selectors in combination to give the user a chance to enter correct data before changing the borders colors:
+ 
+```
+  input.ng-invalid.ng-touched {
+    border: 3px solid yellow;
+  }
+```
+
+ - Template reference variables can also be used to conditionally display helpful messages to the user. This example will only display the message after the user incorrectly enters an email address after an attempt (notice the && operator to test for both conditions):
+ 
+```
+        <div class="form-group">
+          <label>Mail</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            ngModel
+            name="email"
+            required
+            email
+            #emailRefVar="ngModel">
+            <span
+              *ngIf="emailRefVar.invalid && emailRefVar.touched"
+              class="help-message">Please enter a vaild email address.
+            </span>
+        </div>
+```
+
+
+
+## Reactive Approach
+
+ - TODO!
+
 ### 16. Course Project - Forms
 
 ### 17. Using Pipes to Transform Output (aq)

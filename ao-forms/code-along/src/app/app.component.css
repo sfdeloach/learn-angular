@@ -1,0 +1,11 @@
+.row {
+  padding-top: 50px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 3px solid rgb(230, 78, 20);
+}
+
+.help-message {
+  color: rgb(54, 96, 190);
+}
