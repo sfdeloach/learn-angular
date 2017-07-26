@@ -348,7 +348,7 @@ The star added to built-in structural directives like `*ngIf` and `*ngFor` is cl
 
 ```
   <div *ngIf="someBooleanValue">
-    ...
+    <!-- All your code here will only be displayed if *ngIf evals to true -->
   </div>
 ```
 
@@ -358,8 +358,8 @@ In reality, this block of code is expanded to the following:
 ```
   <ng-template>
     <div [ngIf]="someBooleanValue">
-      ...
-    </div>
+      <!-- All your code here will only be displayed if *ngIf evals to true -->
+    </div>
   </ng-template>
 ```
 
@@ -398,8 +398,8 @@ export class UnlessDirective {
 HTML file:
 
   <div *appUnless="someBooleanValue">
-    ...
-  </div>
+    <!-- All your code here will only be displayed if *ngIf evals to true -->
+  </div>
 ```
 
 **Switch structural Directive**
@@ -596,7 +596,7 @@ Routes are defined by importing the following classes, defining routes in an obj
 ```
 import { Routes, RouterModule } from '@angular/router';
 
-...
+// Boiler plate code goes here, skipped for brevity...
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -604,14 +604,14 @@ const appRoutes: Routes = [
   { path: 'users', component: UsersComponent }
 ]
 
-...
+// More boiler plate code goes here...
 
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule
   ],
 
-...
+// Blah, blah, blah, more boiler plate here...
 ```
 
 #### How to create links in your template:
@@ -1222,12 +1222,12 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
 
  - As an alternative to gain access to your form before submission, the `@ViewChild` decorator can be used. This will be useful for form validation. Note that there are no arguments provided to `onSubmit()`:
  
-HTML View:
+*HTML View:*
 ```
   <form (ngSubmit)="onSubmit()" #form="ngForm">
 ```
 
-Business Logic:
+*Business Logic:*
 ```
   @ViewChild('form') signupForm: NgForm;
 
