@@ -1,8 +1,8 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { Ingredient } from '../shared/ingredient.model';
 
 export class ShoppingListService {
-  ingredientAdded: EventEmitter<Ingredient> = new EventEmitter<Ingredient>();
+  ingredientAdded: Subject<Ingredient[]> = new Subject<Ingredient[]>();
   private ingredients: Ingredient[] = [
       new Ingredient('Apples', 5),
       new Ingredient('Tomatoes', 10)
@@ -16,12 +16,12 @@ export class ShoppingListService {
 
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
-    this.ingredientAdded.emit(ingredient);
+    this.ingredientAdded.next(this.ingredients.slice());
   }
 
   addIngredients(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients); // spread operator
     // no need to emit as in addIngredient() because the shopping list template
-    // is not an active view at the time it is used 
+    // is not an active view at the time it is used
   }
 }

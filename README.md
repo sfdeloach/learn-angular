@@ -1178,6 +1178,8 @@ Operators will return new instances of Observables, so these operators can be ch
 
 ### 14. Course Project - Observables
 
+The EventEmitter used to update the shopping list was converted to a RxJS Subject. Additionally, there was some project cleanup where another EventEmitter used to update the RecipeDetail when a recipe was clicked on the RecipeList was removed completely. The view changes are now controlled by a Router.
+
 ### 15. Handling Forms in Angular Apps (ao)
 
 ### 16. Course Project - Forms
