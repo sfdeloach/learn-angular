@@ -1264,7 +1264,7 @@ Business Logic:
   }
 ```
 
- - Template reference variables can also be used to conditionally display helpful messages to the user. This example will only display the message after the user incorrectly enters an email address after an attempt (notice the && operator to test for both conditions):
+ - Template reference variables (TRV) can also be used to conditionally display helpful messages to the user when associated with `ngModel`. This example will only display the message after the user incorrectly enters an email address after an attempt (notice the && operator to test for both conditions, also notice that we are using `ngModel` here with the TRV, not `ngForm`):
  
 ```
         <div class="form-group">
