@@ -1,62 +1,62 @@
 <div class="container">
-  <div class="row">
+  <div class="row toprow">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
       <form (ngSubmit)="onSubmit()" #form="ngForm">
-        <div class="form-group">
-          <label>Username</label>
-          <input
-            type="text"
-            id="username"
-            class="form-control"
-            ngModel
-            name="username"
-            required>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-default" type="button">Suggest an Username</button>
-        </div>
-        <div class="form-group">
-          <label>Mail</label>
-          <input
-            type="email"
-            id="email"
-            class="form-control"
-            ngModel
-            name="email"
-            required
-            email
-            #emailRefVar="ngModel">
-            <span
-              *ngIf="emailRefVar.invalid && emailRefVar.touched"
-              class="help-message">Please enter a vaild email address.
-            </span>
+        <div class="user-data" ngModelGroup="userData" #groupData="ngModelGroup">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" class="form-control" ngModel name="username" required>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-default" type="button" (click)="suggestUsername()">Suggest an Username</button>
+          </div>
+          <div class="form-group">
+            <label>Mail</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required email #emailRefVar="ngModel">
+            <span *ngIf="emailRefVar.invalid && emailRefVar.touched" class="help-message">Please enter a vaild email address.
+              </span>
+            <span *ngIf="groupData.invalid && groupData.touched" class="help-message">Username and/or email field is not valid.
+              </span>
+          </div>
         </div>
         <div class="form-group">
           <label>Number</label>
-          <input
-            type="number"
-            id="number"
-            class="form-control"
-            ngModel
-            name="number"
-            required>
+          <input type="number" id="number" class="form-control" ngModel name="number" required>
         </div>
         <div class="form-group">
           <label>Secret Questions</label>
-          <select
-            id="secret"
-            class="form-control"
-            ngModel
-            name="secret">
+          <select id="secret" class="form-control" [ngModel]="secretValue" name="secret">
             <option value="pet">Your first pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="form.invalid">Submit</button>
+        <div class="form-group">
+          <label>Secret Answer</label>
+          <textarea rows="3" class="form-control" [(ngModel)]="questionAnswer" name="questionAnswer"></textarea>
+          <p>Your reply: {{questionAnswer}}</p>
+        </div>
+        <div *ngFor="let gender of genders" class="radio">
+          <label>
+            <input type="radio" name="gender" [value]="gender" [ngModel]="'male'">
+            {{gender}}
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Submit</button>
       </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+      <div *ngIf="hasSubmitted">
+        <h3>Data Submitted:</h3>
+        <p>User name: <code>{{formValues.userData.username}}</code></p>
+        <p>Email: <code>{{formValues.userData.email}}</code></p>
+        <p>Gender: <code>{{formValues.gender}}</code></p>
+        <p>Number: <code>{{formValues.number}}</code></p>
+        <p>Secret: <code>{{formValues.secret}}</code></p>
+        <p>Answer: <code>{{formValues.questionAnswer}}</code></p>
+      </div>
     </div>
   </div>
 </div>

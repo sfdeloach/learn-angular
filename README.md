@@ -1285,7 +1285,109 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
         </div>
 ```
 
+ - Property binding to `ngModel` can be used to set a default value for an input field. For example:
 
+```
+	  <select
+            id="secret"
+            class="form-control"
+            [ngModel]="secretValue" <!-- or alternatively [ngModel]="'pet'" -->
+            name="secret">
+            <option value="pet">Your first pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+```
+
+ - Two-way property binding to `ngModel` is available if it is necessary to update on every keystroke:
+
+```
+          <label>Secret Answer</label>
+          <textarea
+            rows="3"
+            class="form-control"
+            [(ngModel)]="questionAnswer"
+            name="questionAnswer"></textarea>
+            <p>Your reply: {{questionAnswer}}</p>
+```
+
+ - Inputs using the ngModel directive may be grouped together using `ngModelGroup`. Using this directive will alter the value object by placing your data into seperate objects and allows validation of the group in very similar to the technique shown earlier in this section using template reference variables:
+
+
+```
+        <!-- data from the form will be grouped into an object inside the value object: NgForm.value.userData -->
+        <div class="user-data" ngModelGroup="userData" #groupData="ngModelGroup">
+          <div class="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              id="username"
+              class="form-control"
+              ngModel
+              name="username"
+              required>
+          </div>
+          <div class="form-group">
+            <label>Mail</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email"
+              required
+              email>
+
+              <!-- the template ref variable 'groupData' is used for conditional message -->
+              <span
+                *ngIf="userData.invalid && userData.touched"
+                class="help-message">Username and/or email field is not valid.
+              </span>
+          </div>
+        </div>
+```
+
+ - Example radio button input:
+
+```
+        <div *ngFor="let gender of genders" class="radio">
+          <label>
+            <input type="radio" name="gender" [value]="gender" ngModel>
+            {{gender}}
+          </label>
+        </div>
+```
+
+ - Setting vs patching form values...the setting method will replace all form inputs, patch method allows target change of only one input:
+
+```
+  suggestUsername() {
+    // property this.signupForm refers to @ViewChild('form') signupForm: NgForm;
+    // setValue method takes the entire form object for replacement
+    this.signupForm.setValue({
+      userData: {
+        username: 'SuperUser SetValue',
+        email: "superuser@yahoo.com"
+      },
+      gender: 'female',
+      number: 12,
+      questionAnswer: "This form's data was placed here by a click of suggestion!!!",
+      secret: "teacher"
+    });
+
+    // patchValue method is a targeted approach to set values
+    this.signupForm.form.patchValue({
+      userData: {
+        username: 'SuperUser PatchValue'
+      }
+    });
+  }
+```
+
+ - To clear the form, all of its values, and reset the classes used by angular, use the simple reset method:
+
+```
+  this.form.reset();
+```
 
 ## Reactive Approach
 
