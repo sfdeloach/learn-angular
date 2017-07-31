@@ -17,7 +17,7 @@ Optionally, display the form data as a component.
 
 Features:
 
- - Components: home, form, form-results
+ - Components: home (assignment instructions), form, form-confirm, form-submit
  - Routing:
  - Service: form-data
  - Model: form

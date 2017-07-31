@@ -4,11 +4,16 @@ import { Form } from './form.model';
 @Injectable()
 export class FormDataService {
   formData: Form;
+  public packages: string[] = [
+    "Basic",
+    "Advanced",
+    "Professional"
+  ]
 
   constructor() {
     this.formData = new Form (
       'example@example.com',
-      Form.subLevel.ADV,
+      this.packages[1],
       'secret-password'
     );
   }

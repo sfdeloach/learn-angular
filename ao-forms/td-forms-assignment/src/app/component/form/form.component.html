@@ -1,3 +1,34 @@
-<p>
-  form works!
-</p>
+<h1>Subscription Form</h1>
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+  <div class="form-group">
+    <label>Email</label>
+    <input
+      ngModel
+      name="email"
+      type="email"
+      class="form-control"
+      placeholder="enter your email...">
+  </div>
+  <div class="form-group">
+    <label>Subscription Package</label>
+    <select
+      ngModel
+      name="package"
+      class="form-control">
+      <option
+        *ngFor="let package of formDataService.packages">
+        {{package}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input
+      ngModel
+      name="password"
+      type="password"
+      class="form-control">
+  </div>
+  <button type="button" class="btn btn-default" (click)=onClear()>Clear</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+import { FormDataService } from '../../form-data.service';
 
 @Component({
   selector: 'app-form',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  @ViewChild('form') form: NgForm;
 
-  constructor() { }
+  constructor(private formDataService: FormDataService) { }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+    console.log(this.form);
+  }
+
+  onClear() {
+    // TODO
+    console.log("Clear form.");
+  }
 }
