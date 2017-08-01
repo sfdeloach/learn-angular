@@ -13,8 +13,8 @@ export class FormDataService {
   constructor() {
     this.formData = new Form (
       'example@example.com',
-      this.packages[1],
-      'secret-password'
+      this.packages[0],
+      'super_secret_password'
     );
   }
 

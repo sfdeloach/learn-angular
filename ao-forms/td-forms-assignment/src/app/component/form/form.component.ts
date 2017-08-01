@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { FormDataService } from '../../form-data.service';
 
@@ -11,17 +12,25 @@ import { FormDataService } from '../../form-data.service';
 export class FormComponent implements OnInit {
   @ViewChild('form') form: NgForm;
 
-  constructor(private formDataService: FormDataService) { }
+  constructor(
+    private formDataService: FormDataService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    console.log(this.form);
+    this.formDataService.setForm(this.form.value);
+    this.router.navigate(['/form-confirm']);
   }
 
   onClear() {
     // TODO
     console.log("Clear form.");
+  }
+
+  onAutoGenerate() {
+    this.form.setValue(this.formDataService.formData);
   }
 }

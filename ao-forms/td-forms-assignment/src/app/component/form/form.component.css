@@ -1,0 +1,19 @@
+.entry-needed {
+  border-left: 5px solid rgb(66, 132, 218);
+}
+
+.entry-error {
+  border-left: 5px solid rgb(172, 66, 66);
+}
+
+.entry-valid {
+  border-left: 5px solid rgb(88, 204, 102);
+}
+
+.message-error {
+  color: rgb(172, 66, 66);
+}
+
+.message-valid {
+  color: rgb(88, 204, 102);
+}
