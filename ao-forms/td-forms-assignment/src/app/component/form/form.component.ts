@@ -18,19 +18,17 @@ export class FormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    setTimeout(() => { this.form.setValue(this.formDataService.formData); }, 0);
   }
 
   onSubmit() {
     this.formDataService.setForm(this.form.value);
+    //TODO change isValidForm boolean to true
     this.router.navigate(['/form-confirm']);
   }
 
   onClear() {
-    // TODO
-    console.log("Clear form.");
+    this.form.reset();
   }
 
-  onAutoGenerate() {
-    this.form.setValue(this.formDataService.formData);
-  }
 }

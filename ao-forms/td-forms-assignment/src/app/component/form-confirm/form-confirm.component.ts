@@ -17,7 +17,4 @@ export class FormConfirmComponent implements OnInit {
     this.form = this.formDataService.getForm();
   }
 
-  stringifyForm(): string {
-    return JSON.stringify(this.form);
-  }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FormDataService } from '../../form-data.service';
+import { Form } from '../../form.model';
+
 @Component({
   selector: 'app-form-submit',
   templateUrl: './form-submit.component.html',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormSubmitComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formDataService: FormDataService) { }
 
   ngOnInit() {
+    console.log("Data sent to the server.");
+    console.log("Clearing the form.");
+    this.formDataService.setForm(
+      new Form('', this.formDataService.packages[1], ''));
+    //TODO change isValidForm boolean to false
   }
 
 }

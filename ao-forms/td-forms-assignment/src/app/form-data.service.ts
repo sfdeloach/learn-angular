@@ -8,14 +8,16 @@ export class FormDataService {
     "Basic",
     "Advanced",
     "Professional"
-  ]
+  ];
+  isValidForm: boolean;
 
   constructor() {
-    this.formData = new Form (
-      'example@example.com',
-      this.packages[0],
-      'super_secret_password'
+    this.formData = new Form(
+      '',
+      this.packages[1],
+      ''
     );
+    this.isValidForm = false;
   }
 
   getForm(): Form {

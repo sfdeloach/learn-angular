@@ -1,4 +1,17 @@
-<p>
-  form-confirm works!
-  {{stringifyForm()}}
-</p>
+<h1>Does this look right?</h1>
+<table>
+  <tr>
+    <td>Email:</td>
+    <td class="bolder">{{form.email}}</td>
+  </tr>
+  <tr>
+    <td>Subscription:</td>
+    <td class="bolder">{{form.subscriptionLevel}}</td>
+  </tr>
+  <tr>
+    <td>Password:</td>
+    <td class="bolder">{{form.password}}</td>
+  </tr>
+</table>
+<button class="btn btn-warning" routerLink="/form">No, let me change it.</button>
+<button class="btn btn-success" routerLink="/form-submit">Looks good!</button>

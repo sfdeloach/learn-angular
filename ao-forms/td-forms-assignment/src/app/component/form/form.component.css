@@ -11,9 +11,10 @@
 }
 
 .message-error {
+  background-color: rgb(246, 172, 172);
+  border: 1px solid rgb(208, 136, 136);
+  border-radius: 6px;
   color: rgb(172, 66, 66);
-}
-
-.message-valid {
-  color: rgb(88, 204, 102);
+  margin-top: 2px;
+  padding: 10px;
 }

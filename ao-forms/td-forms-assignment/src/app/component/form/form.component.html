@@ -45,6 +45,5 @@
     <p *ngIf="password.invalid && password.touched" class="message-error">Please enter a password.</p>
   </div>
   <button type="button" class="btn btn-default" (click)=onClear()>Clear</button>
-  <button type="button" class="btn btn-info" (click)="onAutoGenerate()">Auto Generate</button>
   <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
 </form>

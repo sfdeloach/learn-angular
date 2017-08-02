@@ -1,0 +1,19 @@
+td {
+  padding: 8px;
+  font-size: 18px;
+}
+
+.bolder {
+  font-weight: bold;
+  color: rgb(48, 42, 136);
+}
+
+.btn-warning {
+  background-color: rgb(238, 158, 52);
+  border-color: rgb(238, 158, 52);
+}
+
+.btn-warning:hover {
+  background-color: rgb(190, 126, 42);
+  border-color: rgb(164, 108, 36);
+}
