@@ -9,8 +9,8 @@ export class FormDataService {
     "Advanced",
     "Professional"
   ];
-  isValidForm: boolean;
-
+  isValidForm: boolean; //TODO: used this property with a guard service
+                        //      block the user from visiting '/form-confirm'
   constructor() {
     this.formData = new Form(
       '',

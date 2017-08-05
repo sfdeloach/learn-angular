@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FormDataService } from '../../form-data.service';
 import { Form } from '../../form.model';
@@ -11,10 +12,17 @@ import { Form } from '../../form.model';
 export class FormConfirmComponent implements OnInit {
   form: Form;
 
-  constructor(private formDataService: FormDataService) { }
+  constructor(
+    private formDataService: FormDataService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.form = this.formDataService.getForm();
   }
 
+  looksGood() {
+    this.formDataService.isValidForm = false;
+    this.router.navigate(["/form-submit"]);
+  }
 }

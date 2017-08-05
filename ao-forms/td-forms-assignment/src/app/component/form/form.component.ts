@@ -19,16 +19,18 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => { this.form.setValue(this.formDataService.formData); }, 0);
+    this.formDataService.isValidForm = false;
   }
 
   onSubmit() {
     this.formDataService.setForm(this.form.value);
-    //TODO change isValidForm boolean to true
+    this.formDataService.isValidForm = true;
     this.router.navigate(['/form-confirm']);
   }
 
   onClear() {
     this.form.reset();
+    this.formDataService.isValidForm = false;
   }
 
 }

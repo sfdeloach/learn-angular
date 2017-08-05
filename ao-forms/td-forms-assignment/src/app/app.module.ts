@@ -10,6 +10,7 @@ import { FormSubmitComponent } from './component/form-submit/form-submit.compone
 import { HomeComponent } from './component/home/home.component';
 
 import { FormDataService } from './form-data.service';
+import { ValidFormService } from './valid-form.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { FormDataService } from './form-data.service';
     BrowserModule,
     FormsModule
   ],
-  providers: [FormDataService],
+  providers: [
+    FormDataService,
+    ValidFormService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
