@@ -1,0 +1,12 @@
+<h2>Hero Detail</h2>
+<h3><i>FormControl in a FormGroup</i></h3>
+<form [formGroup]="heroForm" novalidate>
+  <div class="form-group">
+    <label class="center-block">Name:
+      <input type="text" class="form-control" formControlName="name">
+    </label>
+  </div>
+</form>
+<p>Form value: {{ heroForm.value | json }}</p>
+<p>Form status: {{ heroForm.status | json }}</p>
+<h2>Up next: Introduction to <em>FormBuilder</em></h2>
