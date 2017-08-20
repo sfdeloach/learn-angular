@@ -1186,15 +1186,21 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
 
 **Template-Driven**
 
- - Faster to setup
+ - Faster to setup initially, becomes more complex as form grows
  - Form is only designed in the html view
  - Angular infers data through your html setup
+ - Validators a little tricky, they must be wrapped in directives
+ - Similar approach used in the original AngularJS
+ - Difficult to unit test
  
 **Reactive Approach**
 
- - More complex to setup
+ - More complex to setup initially, easier to handle large complex forms
  - Form is designed in business logic end
  - Data is manually setup
+ - Validators are simple functions provided for immediate use in the business logic
+ - New technique introduced with the release of Angular 2
+ - Easier unit testing
  
 ## Template-Driven
 
