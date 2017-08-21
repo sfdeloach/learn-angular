@@ -1397,7 +1397,13 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
 
 ## Reactive Approach
 
- - TODO!
+ - Import the appropriate module in AppModule:
+
+```
+  import: [ ReactiveFormsModule ]
+```
+
+ - 
 
 ### 16. Course Project - Forms
 

@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Assignment 7: Practicing Reactive Forms</h3>
+      <hr>
+      <h4>Instructions:</h4>
+      <h5><i>Create a form with the following controls and validators</i></h5>
+      <ol>
+        <li>Project name (should not be empty)</li>
+        <li>Email (should not be empty and should be a valid email)</li>
+        <li>Project status dropdown, with three values: 'Stable', 'Critical', 'Finished'</li>
+        <li>Submit Button</li>
+      </ol>
+      <h5><i>Add your own validator which does not allow "Test" as a Project name.  Also implement that Validator as an async Validator (replace the other one). Upon submitting the form, simply print the value to the console.</i></h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>Solution:</h4>
+      <div class="well well-lg">
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form-group">
+            <label class="center-block">Project name:
+              <input class="form-control" formControlName="name">
+            </label>
+            <div
+              *ngIf="projectForm.get('name').touched && projectForm.get('name').errors && projectForm.get('name').errors.nameIsNull"
+              class="alert alert-danger">
+              A project name must be provided.
+            </div>
+            <div
+              *ngIf="projectForm.get('name').touched && projectForm.get('name').errors && projectForm.get('name').errors.nameIsForbidden"
+              class="alert alert-danger">
+              The project name you have selected is forbidden.
+            </div>
+            <div
+              *ngIf="projectForm.get('name').pending && projectForm.get('name').touched"
+              class="alert alert-info">
+              Checking name for availability...
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Email:
+              <input class="form-control" formControlName="email">
+            </label>
+            <div
+              *ngIf="projectForm.get('email').invalid && projectForm.get('email').touched"
+              class="alert alert-danger">
+              A valid email must be provided.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Project status:
+              <select class="form-control" formControlName="status">
+                <option value="stable">Stable</option>
+                <option value="critical">Critical</option>
+                <option value="finished">Finished</option>
+              </select>
+            </label>
+            <div
+              *ngIf="projectForm.get('status').invalid && projectForm.get('status').touched"
+              class="alert alert-danger">
+              A status must be selected.
+            </div>
+          </div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="projectForm.invalid || projectForm.pending">
+            Submit
+          </button>
+          <button class="btn btn-default" (click)="onConsole()">Console the FormGroup</button>
+        </form>
+      </div>
+      <h4>Diagnostics:</h4>
+      <p>Name validity pending: {{ projectForm.get('name').pending }}</p>
+      <p>Name error messages: {{ projectForm.get('name').errors | json }}</p>
+    </div>
+  </div>
+</div>
