@@ -10,18 +10,18 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 ---
 ## Contents
 
-[Getting Started](#1-getting-started-aa)
-[The Basics](#2-the-basics-ab)
-[Components & Databinding](#5-components--databinding-deep-dive-ae)
-[Directives](#7-directives-deep-dive-ag)
-[Services & Dependency Injection](#9-using-services--dependency-injection-ai)
-[Routing](#11-changes-pages-with-routing-ak)
-[RxJS Observables](#13-understanding-observables-am)
-[Forms](#15-handling-forms-in-angular-apps-ao)
-[Pipes](#17-using-pipes-to-transform-output-aq)
-[Http Requests](#18-making-http-requests-ar)
-[Auth](#20-authentication--route-protection-in-angular-apps-at)
-[Deployment](#22-deploying-an-angular-app-av)
+- [Getting Started](#1-getting-started-aa)
+- [The Basics](#2-the-basics-ab)
+- [Components & Databinding](#5-components--databinding-deep-dive-ae)
+- [Directives](#7-directives-deep-dive-ag)
+- [Services & Dependency Injection](#9-using-services--dependency-injection-ai)
+- [Routing](#11-changes-pages-with-routing-ak)
+- [RxJS Observables](#13-understanding-observables-am)
+- [Forms](#15-handling-forms-in-angular-apps-ao)
+- [Pipes](#17-using-pipes-to-transform-output-aq)
+- [Http Requests](#18-making-http-requests-ar)
+- [Auth](#20-authentication--route-protection-in-angular-apps-at)
+- [Deployment](#22-deploying-an-angular-app-av)
 
 ---
 ## Course Content
