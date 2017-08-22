@@ -24,14 +24,9 @@
               <input class="form-control" formControlName="name">
             </label>
             <div
-              *ngIf="projectForm.get('name').touched && projectForm.get('name').errors && projectForm.get('name').errors.nameIsNull"
+              *ngIf="projectForm.get('name').touched && projectForm.get('name').errors"
               class="alert alert-danger">
-              A project name must be provided.
-            </div>
-            <div
-              *ngIf="projectForm.get('name').touched && projectForm.get('name').errors && projectForm.get('name').errors.nameIsForbidden"
-              class="alert alert-danger">
-              The project name you have selected is forbidden.
+              {{ errorMessage }}
             </div>
             <div
               *ngIf="projectForm.get('name').pending && projectForm.get('name').touched"
@@ -69,7 +64,12 @@
             [disabled]="projectForm.invalid || projectForm.pending">
             Submit
           </button>
-          <button class="btn btn-default" (click)="onConsole()">Console the FormGroup</button>
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="onConsole()">
+            Console the FormGroup
+          </button>
         </form>
       </div>
       <h4>Diagnostics:</h4>

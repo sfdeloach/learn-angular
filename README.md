@@ -8,6 +8,11 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 > Master Angular (both Angular 4 and Angular 2) and build awesome, reactive web apps with the successor of Angular.js
 
 ---
+## Contents
+
+[Routing](#11-changes-pages-with-routing-ak)
+
+---
 ## Course Content
 
 ### 1. Getting Started (aa)
@@ -1397,13 +1402,147 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
 
 ## Reactive Approach
 
- - Import the appropriate module in AppModule:
+The reactive approach will be shown by example. The `ReactiveFormsModule` must be imported in the AppModule from `@angular/forms` before a reactive form can be implemented.
 
+app.component.ts
 ```
-  import: [ ReactiveFormsModule ]
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  projectForm: FormGroup;
+  errorMessage: string;
+
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.projectForm = this.fb.group({
+      // built-in synch validator chained with custom asynch validator (this is bound since errorMessage is referenced in the method)
+      'name': [null, Validators.required, this.isNameValid.bind(this)],
+      // two built-in synch validators (placed inside an array)
+      'email': [null, [Validators.required, Validators.email]],
+      // one built-in synch validator
+      'status': ['critical', Validators.required]
+    });
+    this.errorMessage = "A name must be provided!";
+  }
+
+  // asynch custom validator method
+  isNameValid(control: FormControl): Promise<any> | Observable<any> {
+    const promise = new Promise<any>((resolve, reject) => {
+        setTimeout(() => {
+          if (control.value.toLowerCase() === 'test') {
+            this.errorMessage = "Use of this name is forbidden.";
+            resolve({'nameIsForbidden': true});
+          } else {
+            this.errorMessage = "You must provide a name!";
+            resolve(null);
+          }
+        }, 1500);
+    });
+    return promise;
+  }
+
+  onSubmit() {
+    console.log(this.projectForm.value);
+  }
+
+  // used for testing
+  onConsole() {
+    console.log(this.projectForm);
+  }
+}
 ```
 
- - 
+app.component.html
+```
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3>Assignment 7: Practicing Reactive Forms</h3>
+      <hr>
+      <h4>Instructions:</h4>
+      <h5><i>Create a form with the following controls and validators</i></h5>
+      <ol>
+        <li>Project name (should not be empty)</li>
+        <li>Email (should not be empty and should be a valid email)</li>
+        <li>Project status dropdown, with three values: 'Stable', 'Critical', 'Finished'</li>
+        <li>Submit Button</li>
+      </ol>
+      <h5><i>Add your own validator which does not allow "Test" as a Project name.  Also implement that Validator as an async Validator (replace the other one). Upon submitting the form, simply print the value to the console.</i></h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>Solution:</h4>
+      <div class="well well-lg">
+        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form-group">
+            <label class="center-block">Project name:
+              <input class="form-control" formControlName="name">
+            </label>
+            <div
+              *ngIf="projectForm.get('name').touched && projectForm.get('name').errors"
+              class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+            <div
+              *ngIf="projectForm.get('name').pending && projectForm.get('name').touched"
+              class="alert alert-info">
+              Checking name for availability...
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Email:
+              <input class="form-control" formControlName="email">
+            </label>
+            <div
+              *ngIf="projectForm.get('email').invalid && projectForm.get('email').touched"
+              class="alert alert-danger">
+              A valid email must be provided.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="center-block">Project status:
+              <select class="form-control" formControlName="status">
+                <option value="stable">Stable</option>
+                <option value="critical">Critical</option>
+                <option value="finished">Finished</option>
+              </select>
+            </label>
+            <div
+              *ngIf="projectForm.get('status').invalid && projectForm.get('status').touched"
+              class="alert alert-danger">
+              A status must be selected.
+            </div>
+          </div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="projectForm.invalid || projectForm.pending">
+            Submit
+          </button>
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="onConsole()">
+            Console the FormGroup
+          </button>
+        </form>
+      </div>
+      <h4>Diagnostics:</h4>
+      <p>Name validity pending: {{ projectForm.get('name').pending }}</p>
+      <p>Name error messages: {{ projectForm.get('name').errors | json }}</p>
+    </div>
+  </div>
+</div>
+```
 
 ### 16. Course Project - Forms
 
@@ -1433,4 +1572,4 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
  - install TypeScript module globally to transpile ts files into JavaScript:
         npm install -g typescript
         tsc example-typescript-file.ts
- - Topics covered: classes, interfaces, exports, generics, type
+ - Topics covered: classes, interfaces, exports, generics, types
