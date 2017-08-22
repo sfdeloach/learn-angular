@@ -10,7 +10,18 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 ---
 ## Contents
 
+[Getting Started](#1-getting-started-aa)
+[The Basics](#2-the-basics-ab)
+[Components & Databinding](#5-components--databinding-deep-dive-ae)
+[Directives](#7-directives-deep-dive-ag)
+[Services & Dependency Injection](#9-using-services--dependency-injection-ai)
 [Routing](#11-changes-pages-with-routing-ak)
+[RxJS Observables](#13-understanding-observables-am)
+[Forms](#15-handling-forms-in-angular-apps-ao)
+[Pipes](#17-using-pipes-to-transform-output-aq)
+[Http Requests](#18-making-http-requests-ar)
+[Auth](#20-authentication--route-protection-in-angular-apps-at)
+[Deployment](#22-deploying-an-angular-app-av)
 
 ---
 ## Course Content
@@ -1558,17 +1569,21 @@ app.component.html
 
 ### 22. Deploying an Angular App (av)
 
-### 23. Angular Animations (aw)
+### 23. Bonus: The HttpClient (ax)
 
-### 24. A Basic Introduction to Unit Testing in Angular Apps (ax)
+### 24. Bonus: Working with NgRx in our Project (aw)
 
-### 25. Course Roundup (ay)
+### 25. Angular Animations (ay)
 
-### 26. About the Course Update & Angular 4 (az)
+### 26. A Basic Introduction to Unit Testing in Angular Apps (az)
 
-### 27. Custom Project & Workflow Setup (ba)
+### 27. Course Roundup (ba)
 
-### 28. Bonus: TypeScript Introduction (bc)
+### 28. About the Course Update & Angular 4 (bb)
+
+### 29. Custom Project & Workflow Setup (bd)
+
+### 30. Bonus: TypeScript Introduction (bc)
  - install TypeScript module globally to transpile ts files into JavaScript:
         npm install -g typescript
         tsc example-typescript-file.ts
