@@ -38,6 +38,8 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
          npm install --save bootstrap
          npm install --save font-awesome // (optional)
 
+[top](#learn-angular)
+
 ### 2. The Basics (ab)
  - create a new component called server, a new directory under the app folder (not using cli tool)
  - model the same files found under the app folder using a similar naming convention for ts, html, and css files
@@ -94,6 +96,8 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
       <div *ngFor="let server of servers; let i = index"></div>
 ```
 
+[top](#learn-angular)
+
 ### 3. Course Project - The Basics
   - The course project is revisited several times during this course, therefore, only one project directory will be used with sections identified through version control
   - A new TypeScript feature introduced wherein a shortcut can be used to define a class.  In the traditional sense, a class is defined as follows:
@@ -116,9 +120,13 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
 
   - An important topic that will be addressed in future versions of the class project include learning how components can exchange data with each other.
 
+[top](#learn-angular)
+
 ### 4. Debugging (ad)
   - Using the 'Sources' tab in Chrome Dev Tools, breakpoints can be set allowing you to  step through your code
   - In the dev stage, Sourcemaps are provided under the webpack section, your TypeScript code can be found in its original form under the '.' folder
+
+[top](#learn-angular)
 
 ### 5. Components & Databinding Deep Dive (ae)
 **Custom property binding** - A component's properties are only visible in its own html and ts files by default. Properties of children components can be passed back and forth to their parents by using the decorator `@Input()` or `@Output()` in their class definitions:
@@ -236,7 +244,11 @@ export class ServerElementComponent {
 }
 ```
 
+[top](#learn-angular)
+
 ### 6. Course Project - Components & Databinding (af)
+
+[top](#learn-angular)
 
 ### 7. Directives Deep Dive (ag)
 - There are three types of Directives:
@@ -430,7 +442,11 @@ An example of using a built-in switch directive:
   </div>
 ```
 
+[top](#learn-angular)
+
 ### 8. Course Project - Directives
+
+[top](#learn-angular)
 
 ### 9. Using Services & Dependency Injection (ai)
 
@@ -560,6 +576,8 @@ ngOnInit() {
 }
 ```
 
+[top](#learn-angular)
+
 ### 10. Course Project - Services & Dependency Injection
 
 I deviated from the code provided by the cource when it came to designing my Shopping List service. In the course, Max creates a method called `addIngredients()` which accepts as its single argument an array of `Ingredients`. A new ES6 feature called the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) is used with this new method:
@@ -602,6 +620,8 @@ But, unfortunately in this case, `addIngredient()` looks like this, which emits 
 I ultimately followed the example provided by Max and created a new method that uses the new spread syntax.
 
 Another deviation from the code provided in the course, Max does not directly inject the Shopping List service into his recipe detail. He first injects the Recipe service into the recipe detail, then injects the Shopping List service into his Recipe service. I believe that was largely for demonstration purposes to show how to inject services into services. I directly inject the service I needed to skip the extra step and did not alter my code in the end to reflect the approach provided by Max.
+
+[top](#learn-angular)
 
 ### 11. Changes Pages with Routing (ak)
 
@@ -1074,11 +1094,15 @@ I learned that the `?` at the end of each property name defined that the propert
 
 As another exercise in exploration, I looked for the source code for `Component` located in `@angular/core`. I was able to eventually find it and extensive documentation but the path locations were a little different. I found `Component` under a metadata directives folder, which just provided more support to the idea that components are a type of directives. In fact, `Component` is an interface that extends `Directive`!
 
+[top](#learn-angular)
+
 ### 12. Course Project - Routing
 
 Once again, I have forgotten to use the index property when displaying ngFor loops! When I went about designing how to retrieve recipes from my routes, for a moment I thought about redesigning the recipe model to include an id property, since certainly when we start to retrieve our data from a http request, we will be identifying unique records by id. I did not feel this was right, so I designed my service to return a recipe based on a name. Once I viewed Max's solution, I saw that once again, I forgot about the index value that is automatically created in ngFor loops and how this number could be property binded to my business logic. I decided to leave my solution as is and did not alter it to match Max's solution.
 
 An interesting approach in Max's solution is how he is using one component, the `RecipeEditComponent`, to accomplish both new and edit recipe views. There is one boolean property used in the business logic that will determine its behavior. I had originally created two seperate components, but refactored to follow his example since it appears to be DRY!
+
+[top](#learn-angular)
 
 ### 13. Understanding Observables (am)
 
@@ -1192,9 +1216,13 @@ const myNumbers = Observable.interval(1000).map((data: number) => { return data 
 
 Operators will return new instances of Observables, so these operators can be chained together.
 
+[top](#learn-angular)
+
 ### 14. Course Project - Observables
 
 The EventEmitter used to update the shopping list was converted to a RxJS Subject. Additionally, there was some project cleanup where another EventEmitter used to update the RecipeDetail when a recipe was clicked on the RecipeList was removed completely. The view changes are now controlled by a Router.
+
+[top](#learn-angular)
 
 ### 15. Handling Forms in Angular Apps (ao)
 
@@ -1555,36 +1583,68 @@ app.component.html
 </div>
 ```
 
+[top](#learn-angular)
+
 ### 16. Course Project - Forms
+
+[top](#learn-angular)
 
 ### 17. Using Pipes to Transform Output (aq)
 
+[top](#learn-angular)
+
 ### 18. Making HTTP Requests (ar)
+
+[top](#learn-angular)
 
 ### 19. Course Project - HTTP
 
+[top](#learn-angular)
+
 ### 20. Authentication & Route Protection in Angular Apps (at)
+
+[top](#learn-angular)
 
 ### 21. Using Angular Modules & Optimizing Apps (au)
 
+[top](#learn-angular)
+
 ### 22. Deploying an Angular App (av)
+
+[top](#learn-angular)
 
 ### 23. Bonus: The HttpClient (ax)
 
+[top](#learn-angular)
+
 ### 24. Bonus: Working with NgRx in our Project (aw)
+
+[top](#learn-angular)
 
 ### 25. Angular Animations (ay)
 
+[top](#learn-angular)
+
 ### 26. A Basic Introduction to Unit Testing in Angular Apps (az)
+
+[top](#learn-angular)
 
 ### 27. Course Roundup (ba)
 
+[top](#learn-angular)
+
 ### 28. About the Course Update & Angular 4 (bb)
 
+[top](#learn-angular)
+
 ### 29. Custom Project & Workflow Setup (bd)
+
+[top](#learn-angular)
 
 ### 30. Bonus: TypeScript Introduction (bc)
  - install TypeScript module globally to transpile ts files into JavaScript:
         npm install -g typescript
         tsc example-typescript-file.ts
  - Topics covered: classes, interfaces, exports, generics, types
+
+[top](#learn-angular)
