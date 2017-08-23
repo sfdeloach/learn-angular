@@ -1287,6 +1287,13 @@ The EventEmitter used to update the shopping list was converted to a RxJS Subjec
 ```
 
  - Form validation can only be placed in the html for template driven validation. Use `required` and `email` inside the selectors. Angular will add/remove CSS classes dynamically such as ng-dirty and ng-valid. Refer to the Official Angular Docs on [Validators](https://angular.io/api/forms/Validators) and [Directives](https://angular.io/api?type=directive) for more info.
+ 
+ - Regular expression may be used to create validation rules. In this example, the user must provide a nonnegative integer not equal to zero in order to be validated:
+ 
+ ```
+ <input type="number" id="amount" class="form-control" ngModel name="amount" required pattern="^[1-9]+[0-9]*$">
+ ```
+ 
  - There are a number of useful controls available to you in form validation when you define a [Template reference variable](https://angular.io/guide/template-syntax#ref-vars). Recall that a template reference variable will be default will return a reference to a [web component](https://developer.mozilla.org/en-US/docs/Web/Web_Components). It can also be designed to return an Angular component or directive. For example, contrast the following code:
  
 ```
