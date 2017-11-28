@@ -66,7 +66,7 @@ From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v
  - What is databinding? Databinding = Communication between your business logic and the html template
  - Four types of **Databinding**
     - Output Data (one-way data binding)
-      - Interpolation `{{ data }}`
+      - Interpolation `{{ data }}` when using intepolation, `data` is any TypeScript expression that resolves to a string, it can be a property, method, or ternary expression. Multi-line code, however, is not allowed.
       - Property Binding `[property]="data"`
       - `data` is a property or method() in the app.component.ts namespace
       - In most cases, either technique can be used to achieve the same result, it would be wise to develop a convention on when one technique should be used over the other for consistency
