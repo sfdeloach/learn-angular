@@ -1,11 +1,11 @@
 
 # learn-angular
 
-Collection of work from Udemy's Angular 4 - The complete guide by Maximilian Schwarzmüller
+Collection of work from Udemy's Angular 5 - The complete guide by Maximilian Schwarzmüller
 
 From the [website](https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/overview):
 
-> Master Angular (both Angular 4 and Angular 2) and build awesome, reactive web apps with the successor of Angular.js
+> Master Angular (both Angular 5, 4 and 2) and build awesome, reactive web apps with the successor of Angular.js
 
 ---
 ## Contents
